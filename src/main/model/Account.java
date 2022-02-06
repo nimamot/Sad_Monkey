@@ -21,7 +21,7 @@ public class Account {
         this.email = email;
         id = nextAccountId++;
         wallet = new SMWallet(id);
-        watchList = new ArrayList<NFT>();
+        this.watchList = new ArrayList<NFT>();
 
     }
 
@@ -35,6 +35,11 @@ public class Account {
 
     public List<NFT> getWatchList() {
         return watchList;
+    }
+
+    public void addToWatchlist(NFT nft) {
+        watchList.add(nft);
+
     }
 
 
