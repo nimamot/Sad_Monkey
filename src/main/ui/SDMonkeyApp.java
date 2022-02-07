@@ -3,6 +3,7 @@ package ui;
 import model.Account;
 import model.NFT;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -53,8 +54,10 @@ public class SDMonkeyApp {
                 doAddToWatchlist(monkey2);
                 break;
             case "n":
-
                 doListNFT();
+                break;
+            case "p":
+                doMakePurchase();
                 break;
             default:
                 System.out.println("Selection not valid...");
@@ -80,13 +83,13 @@ public class SDMonkeyApp {
         System.out.println("-------SAD MONKEY-------");
         for (NFT nft: collection.getAllNFTs()
         ) {
-
             System.out.println(nft.getTitle() + "| price : $" + nft.getPrice() + "| Artist : " + nft.getOwner());
         }
         System.out.println("\nSelect from:");
         System.out.println("\ta1 -> add Monkey 1 to watchlist");
         System.out.println("\ta2 -> add Monkey 2 to watchlist ");
         System.out.println("\tn ->  List your NFT");
+        System.out.println("\tp ->  Purchase a NFT");
         System.out.println("\tq ->  quit");
 
         // System.out.println("\nSelect from:");
@@ -124,8 +127,30 @@ public class SDMonkeyApp {
 
         NFT newNftObject = new NFT(newNftTitle, newNftPrice, newNftOwner);
         collection.addNFT(newNftObject);
+        System.out.println("successfully added " + newNftTitle + " for a price of " + newNftPrice);
 
         //System.out.println(" " + newNftTitle);  // Output user input
+    }
+
+    public void doMakePurchase() {
+        List<String> titles = new ArrayList<String>();
+        Scanner myInput = new Scanner(System.in);
+        System.out.println("Enter the title of the desired NFT:");
+        String title = myInput.nextLine();
+        for (NFT nft: collection.getAllNFTs()
+             ) {
+            titles.add(nft.getTitle());
+        }
+        if (titles.contains(title)) {
+            System.out.println("Enter your name:");
+            String name = myInput.nextLine();
+            NFT nft = collection.getNftByTitle(title);
+            account1.getWallet().makePurchase(nft, name);
+        } else {
+            System.out.println(title + " DNE!");
+        }
+
+
     }
 
 

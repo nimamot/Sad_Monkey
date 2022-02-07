@@ -25,7 +25,6 @@ public class NFT {
     }
 
 
-
     public void addNFT(NFT nft) {
         listOfNFTs.add(nft);
 
@@ -52,5 +51,16 @@ public class NFT {
 
     public int getPrice() {
         return this.price;
+    }
+
+    public NFT getNftByTitle(String title) {
+        NFT wantedNft = new NFT();
+        for (NFT eachNft : listOfNFTs) {
+            if (eachNft.title.equals(title)) {
+                wantedNft = eachNft;
+            }
+        }
+        return wantedNft;
+
     }
 }

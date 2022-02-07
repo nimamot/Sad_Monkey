@@ -42,6 +42,10 @@ public class Account {
 
     }
 
+    public SMWallet getWallet() {
+        return wallet;
+    }
+
 
 
 }
