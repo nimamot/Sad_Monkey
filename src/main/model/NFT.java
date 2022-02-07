@@ -11,26 +11,25 @@ public class NFT {
     private String history;
     private List<NFT> listOfNFTs; // list of all NFTs on the site
 
-    // how are you gonna desplay?
 
+    // !!!
     public NFT() {
         listOfNFTs = new ArrayList<>();
-
     }
 
+    // REQUIRES: title and owner have a non-zero length and price > 0
+    // EFFECTS: Construct an NFT object with title, price and owner's name
     public NFT(String title, int price, String owner) {
         this.title = title;
         this.price = price;
         this.owner = owner;
     }
 
-
+    // MODIFIES: this
+    // EFFECTS: add a new nft object to the listOfNFTs
     public void addNFT(NFT nft) {
         listOfNFTs.add(nft);
-
-
     }
-
 
     public String getOwner() {
         return this.owner;
@@ -38,7 +37,6 @@ public class NFT {
 
     public void setOwner(String name) {
         this.owner = name;
-
     }
 
     public List<NFT>  getAllNFTs() {
@@ -53,6 +51,8 @@ public class NFT {
         return this.price;
     }
 
+    // REQUIRES: title must exist in the listOfNFTs
+    // EFFECTS: return the NFT object with the given title
     public NFT getNftByTitle(String title) {
         NFT wantedNft = new NFT();
         for (NFT eachNft : listOfNFTs) {
@@ -61,6 +61,5 @@ public class NFT {
             }
         }
         return wantedNft;
-
     }
 }
