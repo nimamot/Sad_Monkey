@@ -1,7 +1,25 @@
 package model;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AccountTest {
-    // delete or rename this class!
+
+    @BeforeEach
+    void runBefore() {
+
+    }
+
+    @Test
+    void testConstructor() {
+
+    }
+
+    @Test
+    void testAddToWatchlist() {
+
+    }
+
 }

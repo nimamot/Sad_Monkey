@@ -6,7 +6,7 @@ import java.util.List;
 // Represents a wallet having a 12-digit address, account id and balance (in dollars)
 public class SMWallet {
     private String address;
-    private String accountID;
+    private final String accountID;
     private double balance;
     private List<NFT> ownedNFTs;
 
@@ -22,6 +22,7 @@ public class SMWallet {
     }
 
     // REQUIRES: amount > 0
+    // EFFECTS:
     public void transfer(int walletAddress, int amount) {
         //stub
     }
@@ -34,6 +35,11 @@ public class SMWallet {
         ownedNFTs.add(nft);
 
     }
+
+    public List<NFT> getOwnedNFT() {
+        return ownedNFTs;
+    }
+
 
 
 }
