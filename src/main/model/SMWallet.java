@@ -22,22 +22,29 @@ public class SMWallet {
     }
 
     // REQUIRES: amount > 0
-    // EFFECTS:
-    public void transfer(int walletAddress, int amount) {
-        //stub
+    // EFFECTS: deposit money from a different account
+    public void deposit(String walletAddress, double amount) {
+        balance += amount;
     }
+
 
     // MODIFIES: this
     // EFFECTS: change the balance if there is enough balance for the purchase;
     //          change the owner of that NFT
     public void makePurchase(NFT nft, String newOwner) {
-        nft.setOwner(newOwner);
-        ownedNFTs.add(nft);
-
+        if (balance >= nft.getPrice()) {
+            balance -= nft.getPrice();
+            nft.setOwner(newOwner);
+            ownedNFTs.add(nft);
+        }
     }
 
     public List<NFT> getOwnedNFT() {
         return ownedNFTs;
+    }
+
+    public double getBalance() {
+        return balance;
     }
 
 

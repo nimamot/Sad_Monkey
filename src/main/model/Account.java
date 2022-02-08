@@ -33,6 +33,10 @@ public class Account {
         return name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public List<NFT> getWatchList() {
         return watchList;
     }

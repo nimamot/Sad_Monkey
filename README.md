@@ -17,3 +17,5 @@
 - As a user, I want to be able to add an NFT to my watchlist
 - As a user, I want to be able to view my watchlist
 - As a user, I want to be able to view different collections   
+
+
