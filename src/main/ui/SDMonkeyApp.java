@@ -216,6 +216,8 @@ public class SDMonkeyApp {
         }
     }
 
+
+    // EFFECTS:
     public void showWallet() {
         Scanner myInput = new Scanner(System.in);
         System.out.println("--------SD Monkey Wallet------");
