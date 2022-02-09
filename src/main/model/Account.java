@@ -33,10 +33,12 @@ public class Account {
         return name;
     }
 
+    // EFFECTS: return users email
     public String getEmail() {
         return email;
     }
 
+    // EFFECTS: return users warchlist
     public List<NFT> getWatchList() {
         return watchList;
     }
@@ -47,6 +49,7 @@ public class Account {
         watchList.add(nft);
     }
 
+    //EFFECTS:  Return users wallet
     public SMWallet getWallet() {
         return wallet;
     }

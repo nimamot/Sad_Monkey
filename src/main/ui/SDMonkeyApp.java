@@ -187,14 +187,14 @@ public class SDMonkeyApp {
     }
 
 
-    // Change the owner of an NFT
+    // EFFECTS: make a purchase, change the owner of the nft if it exists
+    //          and if the user is not already the owner
     public void doMakePurchase() {
         List<String> titles = new ArrayList<String>();
         Scanner myInput = new Scanner(System.in);
         System.out.println("Enter the title of the NFT: ");
         String title = myInput.nextLine();
-        for (NFT nft : collection.getAllNFTs()
-        ) {
+        for (NFT nft : collection.getAllNFTs()) {
             titles.add(nft.getTitle());
         }
         if (titles.contains(title)) {
@@ -204,8 +204,7 @@ public class SDMonkeyApp {
             if (nft.getOwner().equals(name)) {
                 System.out.println("You already own this NFT");
             } else if (nft.getPrice() > account1.getWallet().getBalance()) {
-                System.out.println("Not enough money in your wallet, you need to deposit first!");
-                showWallet();
+                notEnoughMoneyError();
             } else {
                 account1.getWallet().makePurchase(nft, name);
                 System.out.println("purchased " + nft.getTitle());
@@ -214,6 +213,12 @@ public class SDMonkeyApp {
             System.out.println(title + " Does not exist!");
             doMakePurchase();
         }
+    }
+
+    // EFFECTS: error handling for the case that the user doesn't have enough money
+    public void notEnoughMoneyError() {
+        System.out.println("Not enough money in your wallet, you need to deposit first!");
+        showWallet();
     }
 
 
