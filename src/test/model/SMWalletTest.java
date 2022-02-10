@@ -10,11 +10,13 @@ public class SMWalletTest {
 
     SMWallet wallet1;
     NFT nft1;
+    NFT nft2;
 
     @BeforeEach
     void runBefore() {
         wallet1 = new SMWallet(123456789);
         nft1 = new NFT("MOnkey1", 100, "Dave");
+        nft2 = new NFT("MOnkey2", 20000, "James");
     }
 
     @Test
@@ -38,9 +40,14 @@ public class SMWalletTest {
     @Test
     void testMakePurchase() {
         wallet1.deposit("wwwe2efw", 2000);
-        wallet1.makePurchase(nft1, "Dave");
+        wallet1.makePurchase(nft1, "Sarah");
        assertTrue(wallet1.getOwnedNFT().contains(nft1));
-       assertEquals("Dave", nft1.getOwner());
+       assertEquals("Sarah", nft1.getOwner());
+       assertEquals(1900, wallet1.getBalance());
+
+        wallet1.makePurchase(nft2, "Nate");
+        assertEquals("James", nft2.getOwner());
+
 
     }
 }
