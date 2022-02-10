@@ -31,22 +31,27 @@ public class NFT {
         listOfNFTs.add(nft);
     }
 
+    // EFFECTS: return the name of the owner of the NFT
     public String getOwner() {
         return this.owner;
     }
 
+    // EFFECTS: set the owner of the current NFT to name
     public void setOwner(String name) {
         this.owner = name;
     }
 
-    public List<NFT>  getAllNFTs() {
+    // EFFECTS: return all the NFTs in the collections
+    public List<NFT> getAllNFTs() {
         return listOfNFTs;
     }
 
+    // EFFECTS: Return the title  of the nft
     public String getTitle() {
         return this.title;
     }
 
+    // EFFECTS: return the price of the NFT
     public int getPrice() {
         return this.price;
     }
@@ -61,5 +66,10 @@ public class NFT {
             }
         }
         return wantedNft;
+    }
+
+    // return the siz of the listOfNFTs
+    public int size() {
+        return listOfNFTs.size();
     }
 }

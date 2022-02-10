@@ -38,7 +38,7 @@ public class Account {
         return email;
     }
 
-    // EFFECTS: return users warchlist
+    // EFFECTS: return users watchlist
     public List<NFT> getWatchList() {
         return watchList;
     }

@@ -23,7 +23,7 @@ class AccountTest {
         assertEquals("dave.e@gmail.com", testAccount.getEmail());
         assertTrue(testAccount.getId() > 0);
         assertEquals(0, testAccount.getWatchList().size());
-
+        assertEquals(0, testAccount.getWallet().getBalance());
 
     }
 
