@@ -11,6 +11,8 @@ import java.util.Scanner;
 public class SDMonkeyApp {
     private NFT collection;
     private Account account1;
+    String name;
+    String email;
 
     private Scanner input;
 
@@ -20,10 +22,16 @@ public class SDMonkeyApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: processes user input
+    // EFFECTS: processes user input; get users name and email
     private void runSDMonkey() {
         boolean keepGoing = true;
         String command;
+        Scanner myInput = new Scanner(System.in);
+        System.out.println("Enter your name");
+        name = myInput.nextLine();
+        System.out.println("Enter your Email address");
+        email = myInput.nextLine();
+        System.out.println("successfully signed up");
         init();
 
         while (keepGoing) {
@@ -64,7 +72,7 @@ public class SDMonkeyApp {
     // MODIFIES: this
     // EFFECTS: initializes accounts, makes 2 NFT objects and adds them to the collection
     private void init() {
-        account1 = new Account("Nima", "nima.motieifard@gmail.com");
+        account1 = new Account(name, email);
         collection = new NFT();
         NFT monkey1 = new NFT("monkey 1", 500, "James");
         NFT monkey2 = new NFT("monkey 2", 200, "Dave");
