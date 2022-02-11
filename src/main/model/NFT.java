@@ -11,7 +11,7 @@ public class NFT {
     private List<NFT> listOfNFTs; // list of all NFTs on the site
 
 
-    // !!!
+    /// EFFECTS: make a new listOfNFTs ArrayList
     public NFT() {
         listOfNFTs = new ArrayList<>();
     }

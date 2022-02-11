@@ -12,7 +12,7 @@ public class SMWallet {
 
     // EFFECTS: account number is set to the account number;
     //          Balance is initialized to 0
-    // accounts address is set to account ID
+    //          accounts address is set to account ID
     public SMWallet(int accountNumber) {
         this.accountID = Integer.toString(accountNumber);
         // TODO:
