@@ -6,12 +6,11 @@ import model.NFT;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+// Credits: TellerApp https://github.students.cs.ubc.ca/CPSC210/TellerApp
 
 public class SDMonkeyApp {
     private NFT collection;
     private Account account1;
-    private NFT monkey1;
-    private NFT monkey2;
 
     private Scanner input;
 
@@ -24,7 +23,7 @@ public class SDMonkeyApp {
     // EFFECTS: processes user input
     private void runSDMonkey() {
         boolean keepGoing = true;
-        String command = null;
+        String command;
         init();
 
         while (keepGoing) {
@@ -63,12 +62,12 @@ public class SDMonkeyApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: initializes accounts
+    // EFFECTS: initializes accounts, makes 2 NFT objects and adds them to the collection
     private void init() {
         account1 = new Account("Nima", "nima.motieifard@gmail.com");
         collection = new NFT();
-        monkey1 = new NFT("monkey 1", 500, "Nima");
-        monkey2 = new NFT("monkey 2", 200, "Dave");
+        NFT monkey1 = new NFT("monkey 1", 500, "James");
+        NFT monkey2 = new NFT("monkey 2", 200, "Dave");
         collection.addNFT(monkey1);
         collection.addNFT(monkey2);
         input = new Scanner(System.in);
@@ -80,7 +79,7 @@ public class SDMonkeyApp {
         System.out.println("-------SAD MONKEY-------");
         for (NFT nft : collection.getAllNFTs()
         ) {
-            System.out.println(nft.getTitle() + "| price : $" + nft.getPrice() + "| Artist : " + nft.getOwner());
+            System.out.println(nft.getTitle() + "| price : USDT" + nft.getPrice() + "| Artist : " + nft.getOwner());
         }
         System.out.println("\nSelect from:");
         System.out.println("\t1 -> Go to watchlist");
@@ -89,20 +88,15 @@ public class SDMonkeyApp {
         System.out.println("\t3 ->  Purchase a NFT");
         System.out.println("\t4 ->  view your wallet");
         System.out.println("\tq ->  quit");
-
-        // System.out.println("\nSelect from:");
-        //System.out.println("\tw -> wallet"); // -> Transfer
-        // System.out.println("\tn -> NFT Section"); // NFT Section -> upload/but/add to watchlist
-        // System.out.println("\tq -> quit");
     }
 
 
     // MODIFIES: this
-    // EFFECTS: Add an NFT object to the watchlist array
+    // EFFECTS: Add an NFT object to the watchlist array if it exits
     private void doAddToWatchlist() {
         NFT nft;
         Scanner myInput = new Scanner(System.in);
-        List<String> titles = new ArrayList<String>();
+        List<String> titles = new ArrayList<>();
         for (NFT eachNft : collection.getAllNFTs()) {
             titles.add(eachNft.getTitle());
         }
@@ -132,7 +126,7 @@ public class SDMonkeyApp {
             System.out.println("Your watchlist is empty");
         } else {
             for (NFT eachNFT : account1.getWatchList()) {
-                System.out.println(eachNFT.getTitle() + " | price : $" + eachNFT.getPrice() + " | Artist : "
+                System.out.println(eachNFT.getTitle() + " | price : USDT" + eachNFT.getPrice() + " | Artist : "
                         + eachNFT.getOwner());
             }
         }
@@ -156,10 +150,12 @@ public class SDMonkeyApp {
         System.out.println("\n Select from:");
         System.out.println("\t1 -> Watchlist an NFT");
         System.out.println("\t2 -> Return to menu!");
+
     }
 
     // MODIFIES: this
-    // EFFECTS: Add an NFT object to the listings
+    // EFFECTS: Add an NFT object to the existing listings on the marketplace if the user has enough balance,
+    //          and the inputs are valid
     public void doListNFT() {
         int newNftPrice;
         Scanner myInput = new Scanner(System.in);
@@ -169,10 +165,11 @@ public class SDMonkeyApp {
         if (myInput.hasNextInt()) {
             newNftPrice = myInput.nextInt();
             if (newNftPrice > 0) {
-                System.out.println("Enter your name");
-                String newNftOwner = myInput.next();
+                //System.out.println("Enter your name");
+                String newNftOwner = account1.getName();
                 NFT newNftObject = new NFT(newNftTitle, newNftPrice, newNftOwner);
                 collection.addNFT(newNftObject);
+                account1.getWallet().getOwnedNFT().add(newNftObject);
                 System.out.println("successfully added " + newNftTitle + " for a price of " + newNftPrice);
             } else {
                 System.out.println("the price has to positive!");
@@ -187,10 +184,11 @@ public class SDMonkeyApp {
     }
 
 
-    // EFFECTS: make a purchase, change the owner of the nft if it exists
+    // MODIFIES: this
+    // EFFECTS: make a purchase, change the owner of the nft if NFT exists
     //          and if the user is not already the owner
     public void doMakePurchase() {
-        List<String> titles = new ArrayList<String>();
+        List<String> titles = new ArrayList<>();
         Scanner myInput = new Scanner(System.in);
         System.out.println("Enter the title of the NFT: ");
         String title = myInput.nextLine();
@@ -198,8 +196,7 @@ public class SDMonkeyApp {
             titles.add(nft.getTitle());
         }
         if (titles.contains(title)) {
-            System.out.println("Enter your name:");
-            String name = myInput.nextLine();
+            String name = account1.getName();
             NFT nft = collection.getNftByTitle(title);
             if (nft.getOwner().equals(name)) {
                 System.out.println("You already own this NFT");
@@ -215,19 +212,36 @@ public class SDMonkeyApp {
         }
     }
 
-    // EFFECTS: error handling for the case that the user doesn't have enough money
+    // EFFECTS: Error handling for the case that the user doesn't have enough money when Making a purchase
     public void notEnoughMoneyError() {
         System.out.println("Not enough money in your wallet, you need to deposit first!");
         showWallet();
     }
 
 
-    // EFFECTS:
+    // EFFECTS: display users wallet including their balance, and an option to deposit more assets
     public void showWallet() {
-        Scanner myInput = new Scanner(System.in);
-        System.out.println("--------SD Monkey Wallet------");
         double currentBalance = account1.getWallet().getBalance();
-        System.out.println("Your Current Balance: " + currentBalance);
+        System.out.println("--------SD Monkey Wallet------" + "\n" + "Name: " + account1.getName() + "\n" + "Email: "
+                + account1.getEmail());
+        //System.out.println("Email: " + account1.getEmail());
+        System.out.println("--------------------------" + "\n Your Current Balance: USDT" + currentBalance
+                + "\n-------------------------- \n Your NFTs: ");
+        if (account1.getWallet().getOwnedNFT().isEmpty()) {
+            System.out.println("No NFTs to display");
+        } else {
+            for (NFT nft : account1.getWallet().getOwnedNFT()) {
+                System.out.println(nft.getTitle());
+            }
+        }
+        displayMenuForShowWalletMethod();
+
+    }
+
+    // EFFECTS: handle user input and display the menu for showWallet method
+    public void displayMenuForShowWalletMethod() {
+        Scanner myInput = new Scanner(System.in);
+        System.out.println("--------------------------");
         System.out.println("\n Select from:");
         System.out.println("\t1 -> Deposit");
         System.out.println("\t2 -> Return to menu!");
@@ -245,6 +259,9 @@ public class SDMonkeyApp {
         }
     }
 
+
+    // MODIFIES: this
+    // EFFECTS: increase users balance
     public void doDeposit() {
         Scanner myInput = new Scanner(System.in);
         System.out.println("Please enter the wallet address");
@@ -254,7 +271,7 @@ public class SDMonkeyApp {
             double amount = myInput.nextInt();
             if (amount > 0) {
                 account1.getWallet().deposit(walletAddress, amount);
-                System.out.println("successfully deposited " + amount);
+                System.out.println("successfully deposited USDT" + amount);
                 showWallet();
             } else {
                 System.out.println("amount has to be positive!");
@@ -265,8 +282,5 @@ public class SDMonkeyApp {
             System.out.println("amount has to be a double");
             doDeposit();
         }
-
-
-
     }
 }

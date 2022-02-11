@@ -8,7 +8,6 @@ public class NFT {
     private String owner;
     private int price;
     private String title;
-    private String history;
     private List<NFT> listOfNFTs; // list of all NFTs on the site
 
 

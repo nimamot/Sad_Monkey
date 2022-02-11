@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+// Credits: TellerApp https://github.students.cs.ubc.ca/CPSC210/TellerApp
 // Represents an account having an id, owner name, Email Address and a SMWallet
 public class Account {
     private static int nextAccountId = 1;  // tracks id of next account created
@@ -22,13 +23,15 @@ public class Account {
         this.email = email;
         id = nextAccountId++;
         wallet = new SMWallet(id);
-        this.watchList = new ArrayList<NFT>();
+        this.watchList = new ArrayList<>();
     }
 
+    // EFFECTS: return the account ID
     public int getId() {
         return id;
     }
 
+    // EFFECTS: return the name on the account
     public String getName() {
         return name;
     }
@@ -49,7 +52,7 @@ public class Account {
         watchList.add(nft);
     }
 
-    //EFFECTS:  Return users wallet
+    //EFFECTS:  Return user's wallet
     public SMWallet getWallet() {
         return wallet;
     }

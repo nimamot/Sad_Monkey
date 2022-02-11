@@ -19,18 +19,19 @@ public class SMWallet {
         //  This has to be random and 12 digits long(alphabet + numbers)
         this.address = accountID;
         this.balance = 0;
-        this.ownedNFTs = new ArrayList<NFT>();
+        this.ownedNFTs = new ArrayList<>();
 
     }
 
     // REQUIRES: amount > 0
+    // MODIFIES: this, balance
     // EFFECTS: deposit money from a different account
     public void deposit(String walletAddress, double amount) {
         balance += amount;
     }
 
 
-    // MODIFIES: this
+    // MODIFIES: this, balance
     // EFFECTS: change the balance if there is enough balance for the purchase;
     //          change the owner of that NFT
     public void makePurchase(NFT nft, String newOwner) {
@@ -41,14 +42,18 @@ public class SMWallet {
         }
     }
 
+
+    // EFFECTS: return list of all owned NFTs
     public List<NFT> getOwnedNFT() {
         return ownedNFTs;
     }
 
+    // EFFECTS: Return the current balance
     public double getBalance() {
         return balance;
     }
 
+    // EFFECTS: Return users account ID
     public String getAccountNumber() {
         return accountID;
     }
