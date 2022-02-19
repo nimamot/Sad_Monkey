@@ -18,6 +18,8 @@
 - As a user, I want to be able to view my watchlist
 - As a user, I want to be able to purchase an NFT
 - As a user, I want to be able to add an NFT to my watchlist
-- As a user I want to be able to transfer assets to my wallet
+- As a user, I want to be able to transfer assets to my wallet
+- As a user, I want to be abl to logout of my account, knowing that all my data (ie: name, Email, wallet info, NFTs,...) are securely saved.
+- As a User, I want to be able to login to my account and see all my previous data.
 
 
