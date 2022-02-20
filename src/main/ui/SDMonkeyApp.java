@@ -2,7 +2,11 @@ package ui;
 
 import model.Account;
 import model.NFT;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -13,8 +17,12 @@ public class SDMonkeyApp {
     private Account account1;
     String name;
     String email;
-
     private Scanner input;
+    private static final String JSON_STORE = "./data/account.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+    private Account account;
+
 
     // EFFECTS: runs the SDMonkey application
     public SDMonkeyApp() {
@@ -31,6 +39,7 @@ public class SDMonkeyApp {
         name = myInput.nextLine();
         System.out.println("Enter your Email address");
         email = myInput.nextLine();
+        //if ()
         System.out.println("successfully signed up");
         init();
 
@@ -40,12 +49,25 @@ public class SDMonkeyApp {
             command = command.toLowerCase();
 
             if (command.equals("q")) {
+                saveAccount();
                 keepGoing = false;
             } else {
                 processCommand(command);
             }
         }
         System.out.println("\nGoodbye!");
+    }
+
+    // EFFECTS: saves the workroom to file
+    private void saveAccount() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(account1);
+            jsonWriter.close();
+            System.out.println("Saved " + account1.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
     }
 
     // MODIFIES: this
@@ -291,4 +313,28 @@ public class SDMonkeyApp {
             doDeposit();
         }
     }
+
+    // EFFECTS: saves the workroom to file
+    private void saveWorkRoom() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(account);
+            jsonWriter.close();
+            System.out.println("Saved " + account.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads workroom from file
+    private void loadWorkRoom() {
+        try {
+            account = jsonReader.read();
+            System.out.println("Loaded " + account.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
 }

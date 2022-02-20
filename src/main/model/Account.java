@@ -1,11 +1,14 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // Credits: TellerApp https://github.students.cs.ubc.ca/CPSC210/TellerApp
 // Represents an account having an id, owner name, Email Address and a SMWallet
-public class Account {
+public class Account implements Writable {
     private static int nextAccountId = 1;  // tracks id of next account created
     private int id;                        // account id
     private String name;                   // the account owner name
@@ -55,5 +58,11 @@ public class Account {
     //EFFECTS:  Return user's wallet
     public SMWallet getWallet() {
         return wallet;
+    }
+
+    // TODO
+    @Override
+    public JSONObject toJson() {
+        return null;
     }
 }

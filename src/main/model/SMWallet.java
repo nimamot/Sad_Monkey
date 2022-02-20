@@ -1,23 +1,23 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // Represents a wallet having a 12-digit address, account id and balance (in dollars)
-public class SMWallet {
-    private String address;
+public class SMWallet implements Writable {
     private final String accountID;
     private double balance;
-    private List<NFT> ownedNFTs;
+    private final List<NFT> ownedNFTs;
 
     // EFFECTS: account number is set to the account number;
     //          Balance is initialized to 0
     //          accounts address is set to account ID
     public SMWallet(int accountNumber) {
         this.accountID = Integer.toString(accountNumber);
-        // TODO:
-        //  This has to be random and 12 digits long(alphabet + numbers)
-        this.address = accountID;
+        String address = accountID;
         this.balance = 0;
         this.ownedNFTs = new ArrayList<>();
 
@@ -58,4 +58,9 @@ public class SMWallet {
         return accountID;
     }
 
+    // TODO
+    @Override
+    public JSONObject toJson() {
+        return null;
+    }
 }

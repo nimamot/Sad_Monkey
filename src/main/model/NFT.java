@@ -1,10 +1,13 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // Represents a single NFT
-public class NFT {
+public class NFT implements Writable {
     private String owner;
     private int price;
     private String title;
@@ -70,5 +73,11 @@ public class NFT {
     // return the siz of the listOfNFTs
     public int size() {
         return listOfNFTs.size();
+    }
+
+    // TODO
+    @Override
+    public JSONObject toJson() {
+        return null;
     }
 }
