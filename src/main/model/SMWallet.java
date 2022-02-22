@@ -58,9 +58,17 @@ public class SMWallet implements Writable {
         return accountID;
     }
 
+    // TODO : TESTS THIS!
+    // MODIFIES: this
+    // EFFECTS: nft objects to the wallet, only used for JsonReader
+    public void addNFT(NFT nft) {
+        ownedNFTs.add(nft);
+    }
+
     // TODO
     @Override
     public JSONObject toJson() {
         return null;
     }
 }
+

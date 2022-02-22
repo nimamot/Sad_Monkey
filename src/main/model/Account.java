@@ -1,8 +1,13 @@
 package model;
 
+import exceptions.AccountExistsException;
+import jdk.nashorn.internal.parser.JSONParser;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,11 +15,13 @@ import java.util.List;
 // Represents an account having an id, owner name, Email Address and a SMWallet
 public class Account implements Writable {
     private static int nextAccountId = 1;  // tracks id of next account created
-    private int id;                        // account id
-    private String name;                   // the account owner name
-    private SMWallet wallet;
-    private String email;
-    private List<NFT> watchList;
+    private final int id;                        // account id
+    private final String name;                   // the account owner name
+    private final SMWallet wallet;
+    private final String email;
+    private final List<NFT> watchList;
+    private final List<Account> allAccounts;
+
 
     // REQUIRES: accountName has a non-zero length
     // EFFECTS: name on account is set to name; account id is a
@@ -27,6 +34,7 @@ public class Account implements Writable {
         id = nextAccountId++;
         wallet = new SMWallet(id);
         this.watchList = new ArrayList<>();
+        allAccounts = new ArrayList<>();
     }
 
     // EFFECTS: return the account ID
@@ -60,9 +68,61 @@ public class Account implements Writable {
         return wallet;
     }
 
+
+    // EFFECTS: add the new account to the list of accounts, if the already exists
+    //          throw exception
+    public void addAccountToAllAccounts(Account acc) throws AccountExistsException, FileNotFoundException {
+        JSONObject json = new JSONObject();
+
+        String userEmail = acc.getEmail();
+        if (allAccounts.isEmpty()) {
+            allAccounts.add(acc);
+        } else {
+            for (Account account : allAccounts) {
+                if (userEmail.equals(account.getEmail())) {
+                    throw new AccountExistsException();
+                } else {
+                    allAccounts.add(acc);
+                }
+            }
+        }
+    }
+
+    // EFFECTS: return all accounts
+    public List<Account> getAllAccounts() {
+        return allAccounts;
+    }
+
+    // EFFECTS: change the owner of an NFT in the watchlist
+    public void changeWhatchlistedNftOewner() {
+
+    }
+
+
     // TODO
     @Override
     public JSONObject toJson() {
-        return null;
+        JSONObject json = new JSONObject();
+        //json.put("Email", email);
+        json.put("watchlist", watchList);
+        //json.put("Wallet", wallet);
+        json.put("Current Balance", wallet.getBalance());
+        json.put("owned nfts", wallet.getOwnedNFT());
+        json.put("name", name);
+        json.put("Email", email); // accountToJson()
+        return json;
     }
+
+    // EFFECTS: returns NFTs in this workroom as a JSON array
+    private JSONArray accountToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Account a : allAccounts) {
+            jsonArray.put(a.getEmail());
+            jsonArray.put(a.getName());
+        }
+
+        return jsonArray;
+    }
+
+
 }

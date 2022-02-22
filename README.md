@@ -23,7 +23,7 @@
 - As a user, I want to be abl to quit the app, knowing that all my data (ie: name, Email, wallet info, NFTs,...) are securely saved.
 - As a User, I want to be able to login to my account and see the NFTs I watchlisted before.
 - As a User, I want to be able to login to my account and see the NFTs I own.
-- As a User, I want to be able to login to my account and see my balance.
+- As a User, I want to be able to login to my account and see my current balance.
 
 
 ## Citation: 

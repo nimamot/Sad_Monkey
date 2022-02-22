@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.AccountExistsException;
 import model.Account;
 import model.NFT;
 import persistence.JsonReader;
@@ -13,19 +14,24 @@ import java.util.Scanner;
 // Credits: TellerApp https://github.students.cs.ubc.ca/CPSC210/TellerApp
 
 public class SDMonkeyApp {
-    private NFT collection;
+    private NFT collection = new NFT();
     private Account account1;
     String name;
     String email;
+    private List<String> titleOfNFTs = new ArrayList<String>();
     private Scanner input;
     private static final String JSON_STORE = "./data/account.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
-    private Account account;
+
 
 
     // EFFECTS: runs the SDMonkey application
     public SDMonkeyApp() {
+        //input = new Scanner(System.in);
+        //workRoom = new WorkRoom("Alex's workroom");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runSDMonkey();
     }
 
@@ -34,13 +40,17 @@ public class SDMonkeyApp {
     private void runSDMonkey() {
         boolean keepGoing = true;
         String command;
-        Scanner myInput = new Scanner(System.in);
-        System.out.println("Enter your name");
-        name = myInput.nextLine();
-        System.out.println("Enter your Email address");
-        email = myInput.nextLine();
+        //Scanner myInput = new Scanner(System.in);
+        //System.out.println("Enter your name");
+        //name = myInput.nextLine();
+        name = "Alex Lee";
+        //System.out.println("Enter your Email address");
+        //email = myInput.nextLine();
+        email = "Alex.lee@gmail.com";
         //if ()
-        System.out.println("successfully signed up");
+        //System.out.println("successfully signed up");
+        //if ()
+        loadWorkRoom();
         init();
 
         while (keepGoing) {
@@ -94,10 +104,28 @@ public class SDMonkeyApp {
     // MODIFIES: this
     // EFFECTS: initializes accounts, makes 2 NFT objects and adds them to the collection
     private void init() {
-        account1 = new Account(name, email);
-        collection = new NFT();
+//        try {
+//            account1 = new Account(name, email);
+//            account1.addAccountToAllAccounts(account1);
+//        } catch (AccountExistsException | FileNotFoundException e) {
+//            System.out.println("Email already in the DB");
+//            init();
+//        }
+
         NFT monkey1 = new NFT("monkey 1", 500, "James");
         NFT monkey2 = new NFT("monkey 2", 200, "Dave");
+        List<NFT> listOfNFTs = new ArrayList<NFT>();
+        listOfNFTs = account1.getWallet().getOwnedNFT();
+        getAllNftsTitleListVersion(listOfNFTs);
+
+        if (getAllNftsTitleListVersion(listOfNFTs).contains("monkey 1")) {
+            monkey1.setOwner(account1.getName());
+            //account1.
+        }
+
+        if (getAllNftsTitleListVersion(listOfNFTs).contains("monkey 2")) {
+            monkey2.setOwner(account1.getName());
+        }
         collection.addNFT(monkey1);
         collection.addNFT(monkey2);
         input = new Scanner(System.in);
@@ -113,11 +141,10 @@ public class SDMonkeyApp {
         }
         System.out.println("\nSelect from:");
         System.out.println("\t1 -> Go to watchlist");
-        //System.out.println("\t2 -> add Monkey 2 to watchlist ");
         System.out.println("\t2 ->  List your NFT");
         System.out.println("\t3 ->  Purchase a NFT");
         System.out.println("\t4 ->  view your wallet");
-        System.out.println("\tq ->  quit");
+        System.out.println("\tq ->  save and quit");
     }
 
 
@@ -137,7 +164,8 @@ public class SDMonkeyApp {
             System.out.println("NFT does not exist!");
         } else {
             nft = collection.getNftByTitle(nftTitle);
-            if (!account1.getWatchList().contains(nft)) {
+            if (//!account1.getWatchList().contains(nft) // TODO
+                     !getAllNftsTitleListVersionForWatchlist(account1.getWatchList()).contains(nftTitle)) {
                 account1.addToWatchlist(nft);
                 System.out.println("added " + nft.getTitle() + " To your watchlist");
 
@@ -158,6 +186,7 @@ public class SDMonkeyApp {
             for (NFT eachNFT : account1.getWatchList()) {
                 System.out.println(eachNFT.getTitle() + " | price : USDT" + eachNFT.getPrice() + " | Artist : "
                         + eachNFT.getOwner());
+
             }
         }
         showMenu();
@@ -183,6 +212,37 @@ public class SDMonkeyApp {
 
     }
 
+    // EFFECTS: return a list of string. containing all the NFT titles in the clollection
+    public List<String> getAllNftsTitle(NFT listOfNFts) {
+        for (NFT nft : listOfNFts.getAllNFTs()) {
+            if (!titleOfNFTs.contains(nft.getTitle())) {
+                titleOfNFTs.add(nft.getTitle());
+            }
+        }
+        return titleOfNFTs;
+    }
+
+    // EFFECTS: return a list of string. containing all the NFT titles in the clollection
+    public List<String> getAllNftsTitleListVersion(List<NFT> listOfNFts) {
+        for (NFT nft : listOfNFts) {
+            if (!titleOfNFTs.contains(nft.getTitle())) {
+                titleOfNFTs.add(nft.getTitle());
+            }
+        }
+        return titleOfNFTs;
+    }
+
+    // EFFECTS: return a list of string. containing all the NFT titles in the clollection
+    public List<String> getAllNftsTitleListVersionForWatchlist(List<NFT> listOfNFts) {
+        List<String> listOfTitlesOfNFTs = new ArrayList<String>();
+        for (NFT nft : listOfNFts) {
+            {
+                listOfTitlesOfNFTs.add(nft.getTitle());
+            }
+        }
+        return listOfTitlesOfNFTs;
+    }
+
     // MODIFIES: this
     // EFFECTS: Add an NFT object to the existing listings on the marketplace if the user has enough balance,
     //          and the inputs are valid
@@ -191,26 +251,31 @@ public class SDMonkeyApp {
         Scanner myInput = new Scanner(System.in);
         System.out.println("Enter the title for the new NFT");
         String newNftTitle = myInput.nextLine();
-        System.out.println("Enter the price");
-        if (myInput.hasNextInt()) {
-            newNftPrice = myInput.nextInt();
-            if (newNftPrice > 0) {
-                //System.out.println("Enter your name");
-                String newNftOwner = account1.getName();
-                NFT newNftObject = new NFT(newNftTitle, newNftPrice, newNftOwner);
-                collection.addNFT(newNftObject);
-                account1.getWallet().getOwnedNFT().add(newNftObject);
-                System.out.println("successfully added " + newNftTitle + " for a price of " + newNftPrice);
+        if (!getAllNftsTitle(collection).contains(newNftTitle)) {
+            System.out.println("Enter the price");
+            if (myInput.hasNextInt()) {
+                newNftPrice = myInput.nextInt();
+                if (newNftPrice > 0) {
+                    String newNftOwner = account1.getName();
+                    NFT newNftObject = new NFT(newNftTitle, newNftPrice, newNftOwner);
+                    collection.addNFT(newNftObject);
+                    account1.getWallet().getOwnedNFT().add(newNftObject);
+                    System.out.println("successfully added " + newNftTitle + " for a price of " + newNftPrice);
+                } else {
+                    handleErrorForDoListNFT("the price has to positive! \n -----------");
+                }
             } else {
-                System.out.println("the price has to positive!");
-                System.out.println("-----------");
-                doListNFT();
+                handleErrorForDoListNFT("please input a positive integer for price! \n -----------");
             }
         } else {
-            System.out.println("please input a positive integer for price!");
-            System.out.println("-----------");
-            doListNFT();
+            handleErrorForDoListNFT("an NFT with that title already exists \n -----------");
         }
+    }
+
+
+    public void handleErrorForDoListNFT(String msg) {
+        System.out.println(msg);
+        doListNFT();
     }
 
 
@@ -314,24 +379,18 @@ public class SDMonkeyApp {
         }
     }
 
-    // EFFECTS: saves the workroom to file
-    private void saveWorkRoom() {
-        try {
-            jsonWriter.open();
-            jsonWriter.write(account);
-            jsonWriter.close();
-            System.out.println("Saved " + account.getName() + " to " + JSON_STORE);
-        } catch (FileNotFoundException e) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
-        }
-    }
 
     // MODIFIES: this
     // EFFECTS: loads workroom from file
     private void loadWorkRoom() {
         try {
-            account = jsonReader.read();
-            System.out.println("Loaded " + account.getName() + " from " + JSON_STORE);
+            account1 = jsonReader.read();
+            for (NFT nft : JsonReader.getNfts()) {
+                if (!nft.getTitle().equals("monkey 1") && !nft.getTitle().equals("monkey 2")) {
+                    collection.addNFT(nft);
+                }
+            }
+            System.out.println("Welcome back " +  account1.getName() + ", Your data has been loaded from "  + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }

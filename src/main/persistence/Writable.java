@@ -1,5 +1,6 @@
 package persistence;
 
+import model.Account;
 import org.json.JSONObject;
 
 public interface Writable {
