@@ -1,6 +1,5 @@
 package model;
 
-import exceptions.AccountExistsException;
 import jdk.nashorn.internal.parser.JSONParser;
 import org.json.JSONArray;
 import org.json.JSONObject;

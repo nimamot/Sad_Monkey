@@ -1,6 +1,6 @@
 package ui;
 
-import exceptions.AccountExistsException;
+
 import model.Account;
 import model.NFT;
 import persistence.JsonReader;
