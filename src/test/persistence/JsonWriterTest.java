@@ -33,12 +33,12 @@ public class JsonWriterTest {
     @Test
     void testWriterEmptyWorkroom() {
         try {
-            JsonWriter writer = new JsonWriter("./data/testWriterEmptyWorkroom.json");
+            JsonWriter writer = new JsonWriter("./data/testWriterEmptyAccount.json");
             writer.open();
             writer.write(ac);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterEmptyWorkroom.json");
+            JsonReader reader = new JsonReader("./data/testWriterEmptyAccount.json");
             ac = reader.read();
             assertEquals("nima", ac.getName());
             assertEquals("nima@gmail.com", ac.getEmail());
@@ -54,12 +54,12 @@ public class JsonWriterTest {
         try {
             ac.addToWatchlist(new NFT("Mobkey", 2000, "Dave Emran"));
             ac.addToWatchlist(new NFT("Monkey 1", 10000, "Nimamot"));
-            JsonWriter writer = new JsonWriter("./data/testWriterGeneralWorkroom.json");
+            JsonWriter writer = new JsonWriter("./data/testWriterGeneralAccount.json");
             writer.open();
             writer.write(ac);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterGeneralWorkroom.json");
+            JsonReader reader = new JsonReader("./data/testWriterGeneralAccount.json");
             ac = reader.read();
             assertEquals("nima", ac.getName());
             List<NFT> nfts = ac.getWatchList();
