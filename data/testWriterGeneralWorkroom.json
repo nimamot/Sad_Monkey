@@ -1,0 +1,18 @@
+{
+    "Email": "nima@gmail.com",
+    "Current Balance": 0,
+    "name": "nima",
+    "owned nfts": [],
+    "watchlist": [
+        {
+            "owner": "Dave Emran",
+            "price": 2000,
+            "title": "Mobkey"
+        },
+        {
+            "owner": "Nimamot",
+            "price": 10000,
+            "title": "Monkey 1"
+        }
+    ]
+}

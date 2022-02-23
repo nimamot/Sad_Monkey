@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Represents a single NFT
-public class NFT implements Writable {
+public class NFT {
     private String owner;
     private int price;
     private String title;
@@ -75,9 +75,4 @@ public class NFT implements Writable {
         return listOfNFTs.size();
     }
 
-    // TODO
-    @Override
-    public JSONObject toJson() {
-        return null;
-    }
 }

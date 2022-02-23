@@ -50,4 +50,14 @@ public class SMWalletTest {
 
 
     }
+
+    @Test
+    void testAddNFT() {
+        wallet1.addNFT(nft1);
+        assertTrue(wallet1.getOwnedNFT().contains(nft1));
+
+        wallet1.addNFT(nft2);
+        assertTrue(wallet1.getOwnedNFT().contains(nft1)
+                && wallet1.getOwnedNFT().contains(nft2));
+    }
 }

@@ -1,0 +1,22 @@
+{
+  "Email": "Alex.lee@gmail.com",
+  "Current Balance": 1500,
+  "name": "Alex Lee",
+  "owned nfts": [
+    {
+      "owner": "Alex Lee",
+      "price": 500,
+      "title": "monkey 1"
+    },
+    {
+      "owner": "Alex Lee",
+      "price": 100,
+      "title": "monkey 3"
+    }
+  ],
+  "watchlist": [{
+    "owner": "Alex Lee",
+    "price": 500,
+    "title": "monkey 1"
+  }]
+}

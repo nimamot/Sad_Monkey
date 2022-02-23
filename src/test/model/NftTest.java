@@ -60,4 +60,6 @@ public class NftTest {
         assertTrue(nftCollection.getAllNFTs().contains(nft1));
         assertTrue(nftCollection.getAllNFTs().contains(nft2));
     }
+
+
 }

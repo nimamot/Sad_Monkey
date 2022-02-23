@@ -343,7 +343,7 @@ public class SDMonkeyApp {
         String selected = myInput.nextLine();
         switch (selected) {
             case "1":
-                doDeposit(); // wishlists
+                doDeposit();
                 break;
             case "2":
                 break;
@@ -390,7 +390,8 @@ public class SDMonkeyApp {
                     collection.addNFT(nft);
                 }
             }
-            System.out.println("Welcome back " +  account1.getName() + ", Your data has been loaded from "  + JSON_STORE);
+            System.out.println("Welcome back " +  account1.getName() + ", Your data has been loaded from "
+                    + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }

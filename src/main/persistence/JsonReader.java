@@ -15,10 +15,9 @@ import ui.SDMonkeyApp;
 
 // Represents a reader that reads workroom from JSON data stored in file
 public class JsonReader {
-    private String source;
-    private static List<NFT> nfts = new ArrayList<NFT>();
-    private String name;
-    private List<String> titles = new ArrayList<String>();
+    private final String source;
+    private static final List<NFT> nfts = new ArrayList<NFT>();
+    private final List<String> titles = new ArrayList<String>();
     private List<String> owners;
 
     // EFFECTS: constructs reader to read from source file
@@ -47,7 +46,7 @@ public class JsonReader {
 
     // EFFECTS: parses workroom from JSON object and returns it
     private Account parseAccount(JSONObject jsonObject) {
-        name = jsonObject.getString("name");
+        String name = jsonObject.getString("name");
         String email = jsonObject.getString("Email");
         Account ac = new Account(name, email);
         double prevBalance =  jsonObject.getDouble("Current Balance");
@@ -103,6 +102,7 @@ public class JsonReader {
 
     }
 
+    // EFFECTS: return List of NFTs
     public static List<NFT> getNfts() {
         return nfts;
     }

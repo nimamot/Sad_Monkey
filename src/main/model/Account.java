@@ -68,61 +68,28 @@ public class Account implements Writable {
         return wallet;
     }
 
-
-    // EFFECTS: add the new account to the list of accounts, if the already exists
-    //          throw exception
-    public void addAccountToAllAccounts(Account acc) throws AccountExistsException, FileNotFoundException {
-        JSONObject json = new JSONObject();
-
-        String userEmail = acc.getEmail();
-        if (allAccounts.isEmpty()) {
-            allAccounts.add(acc);
-        } else {
-            for (Account account : allAccounts) {
-                if (userEmail.equals(account.getEmail())) {
-                    throw new AccountExistsException();
-                } else {
-                    allAccounts.add(acc);
-                }
-            }
-        }
-    }
-
-    // EFFECTS: return all accounts
-    public List<Account> getAllAccounts() {
-        return allAccounts;
-    }
-
-    // EFFECTS: change the owner of an NFT in the watchlist
-    public void changeWhatchlistedNftOewner() {
-
-    }
-
-
     // TODO
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        //json.put("Email", email);
         json.put("watchlist", watchList);
-        //json.put("Wallet", wallet);
         json.put("Current Balance", wallet.getBalance());
         json.put("owned nfts", wallet.getOwnedNFT());
         json.put("name", name);
-        json.put("Email", email); // accountToJson()
+        json.put("Email", email);
         return json;
     }
 
     // EFFECTS: returns NFTs in this workroom as a JSON array
-    private JSONArray accountToJson() {
-        JSONArray jsonArray = new JSONArray();
-        for (Account a : allAccounts) {
-            jsonArray.put(a.getEmail());
-            jsonArray.put(a.getName());
-        }
-
-        return jsonArray;
-    }
+//    private JSONArray accountToJson() {
+//        JSONArray jsonArray = new JSONArray();
+//        for (Account a : allAccounts) {
+//            jsonArray.put(a.getEmail());
+//            jsonArray.put(a.getName());
+//        }
+//
+//        return jsonArray;
+//    }
 
 
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Represents a wallet having a 12-digit address, account id and balance (in dollars)
-public class SMWallet implements Writable {
+public class SMWallet {
     private final String accountID;
     private double balance;
     private final List<NFT> ownedNFTs;
@@ -65,10 +65,5 @@ public class SMWallet implements Writable {
         ownedNFTs.add(nft);
     }
 
-    // TODO
-    @Override
-    public JSONObject toJson() {
-        return null;
-    }
 }
 
