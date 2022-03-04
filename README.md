@@ -27,5 +27,5 @@
 
 
 ## Citation: 
-- Phase 1: Teller App, (GitHub: ...)
+- Phase 1: Teller App, (https://github.students.cs.ubc.ca/CPSC210/TellerApp)
 - Phase 2: JsonSerializationDemo (GitHub: )

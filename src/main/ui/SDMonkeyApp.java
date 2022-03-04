@@ -14,7 +14,7 @@ import java.util.Scanner;
 // Credits: TellerApp https://github.students.cs.ubc.ca/CPSC210/TellerApp
 
 public class SDMonkeyApp {
-    private NFT collection = new NFT();
+    private final NFT collection = new NFT();
     private Account account1;
     String name;
     String email;
@@ -23,6 +23,7 @@ public class SDMonkeyApp {
     private static final String JSON_STORE = "./data/account.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
+    private boolean saveAccount;
 
 
 
@@ -30,6 +31,7 @@ public class SDMonkeyApp {
     public SDMonkeyApp() {
         //input = new Scanner(System.in);
         //workRoom = new WorkRoom("Alex's workroom");
+        saveAccount = true;
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         runSDMonkey();
@@ -41,7 +43,7 @@ public class SDMonkeyApp {
         boolean keepGoing = true;
         String command;
         //Scanner myInput = new Scanner(System.in);
-        //System.out.println("Enter your name");
+        //System.out.println("Plea");
         //name = myInput.nextLine();
         name = "Alex Lee";
         //System.out.println("Enter your Email address");
@@ -50,6 +52,8 @@ public class SDMonkeyApp {
         //if ()
         //System.out.println("successfully signed up");
         //if ()
+        //name = myInput.nextLine();
+
         loadWorkRoom();
         init();
 
@@ -59,7 +63,10 @@ public class SDMonkeyApp {
             command = command.toLowerCase();
 
             if (command.equals("q")) {
-                saveAccount();
+                handlePromptForSaveOrNotSave();
+                if (saveAccount) {
+                    saveAccount();
+                }
                 keepGoing = false;
             } else {
                 processCommand(command);
@@ -67,6 +74,23 @@ public class SDMonkeyApp {
         }
         System.out.println("\nGoodbye!");
     }
+
+    // MODIFIES: saveAccount
+    // EFFECTS: set saveAccount to false if user input n, otherwise true
+    public void handlePromptForSaveOrNotSave() {
+        Scanner myInput = new Scanner(System.in);
+        String response;
+        System.out.println("would you like to save the changes you made? (y/n)");
+        response = myInput.nextLine();
+        if (response.equals("y")) {
+            saveAccount = true;
+        } else if (response.equals("n")) {
+            saveAccount = false;
+        } else {
+            System.out.println("wrong input, saving anyways lol");
+        }
+    }
+
 
     // EFFECTS: saves the workroom to file
     private void saveAccount() {
@@ -104,17 +128,9 @@ public class SDMonkeyApp {
     // MODIFIES: this
     // EFFECTS: initializes accounts, makes 2 NFT objects and adds them to the collection
     private void init() {
-//        try {
-//            account1 = new Account(name, email);
-//            account1.addAccountToAllAccounts(account1);
-//        } catch (AccountExistsException | FileNotFoundException e) {
-//            System.out.println("Email already in the DB");
-//            init();
-//        }
-
         NFT monkey1 = new NFT("monkey 1", 500, "James");
         NFT monkey2 = new NFT("monkey 2", 200, "Dave");
-        List<NFT> listOfNFTs = new ArrayList<NFT>();
+        List<NFT> listOfNFTs;
         listOfNFTs = account1.getWallet().getOwnedNFT();
         getAllNftsTitleListVersion(listOfNFTs);
 
@@ -164,8 +180,7 @@ public class SDMonkeyApp {
             System.out.println("NFT does not exist!");
         } else {
             nft = collection.getNftByTitle(nftTitle);
-            if (//!account1.getWatchList().contains(nft) // TODO
-                     !getAllNftsTitleListVersionForWatchlist(account1.getWatchList()).contains(nftTitle)) {
+            if (!getAllNftsTitleListVersionForWatchlist(account1.getWatchList()).contains(nftTitle)) {
                 account1.addToWatchlist(nft);
                 System.out.println("added " + nft.getTitle() + " To your watchlist");
 
@@ -234,7 +249,7 @@ public class SDMonkeyApp {
 
     // EFFECTS: return a list of string. containing all the NFT titles in the clollection
     public List<String> getAllNftsTitleListVersionForWatchlist(List<NFT> listOfNFts) {
-        List<String> listOfTitlesOfNFTs = new ArrayList<String>();
+        List<String> listOfTitlesOfNFTs = new ArrayList<>();
         for (NFT nft : listOfNFts) {
             {
                 listOfTitlesOfNFTs.add(nft.getTitle());

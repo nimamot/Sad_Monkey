@@ -86,7 +86,8 @@ public class JsonReader {
         //}
     }
 
-//TODO : restrict the list nft method so that no 2 nfts with the same title can ever exist
+
+    //EFFECTS:  add NFTs to the wallet
     public void handleWallet(Account ac, JSONObject jsonObject) {
         String title = jsonObject.getString("title");
         String owner = jsonObject.getString("owner");
