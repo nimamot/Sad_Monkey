@@ -68,6 +68,7 @@ public class Account implements Writable {
     }
 
     // TODO
+    // EFFECTS: convert form Json Object to
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -78,17 +79,4 @@ public class Account implements Writable {
         json.put("Email", email);
         return json;
     }
-
-    // EFFECTS: returns NFTs in this workroom as a JSON array
-//    private JSONArray accountToJson() {
-//        JSONArray jsonArray = new JSONArray();
-//        for (Account a : allAccounts) {
-//            jsonArray.put(a.getEmail());
-//            jsonArray.put(a.getName());
-//        }
-//
-//        return jsonArray;
-//    }
-
-
 }

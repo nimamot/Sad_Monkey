@@ -10,8 +10,13 @@
         },
         {
             "owner": "Alex Lee",
-            "price": 200,
-            "title": "monkey 2"
+            "price": 2000,
+            "title": "monkey 5"
+        },
+        {
+            "owner": "Alex Lee",
+            "price": 2000,
+            "title": "monkey 10"
         }
     ],
     "watchlist": [
@@ -21,9 +26,9 @@
             "title": "monkey 1"
         },
         {
-            "owner": "Alex Lee",
-            "price": 100,
-            "title": "monkey 3"
+            "owner": "Dave",
+            "price": 200,
+            "title": "monkey 2"
         }
     ]
 }

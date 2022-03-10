@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 import org.json.*;
 import ui.SDMonkeyApp;
 
-// Represents a reader that reads workroom from JSON data stored in file
+// Represents a reader that reads account from JSON data stored in file
 public class JsonReader {
     private final String source;
     private static final List<NFT> nfts = new ArrayList<NFT>();
@@ -25,7 +25,7 @@ public class JsonReader {
         this.source = source;
     }
 
-    // EFFECTS: reads workroom from file and returns it;
+    // EFFECTS: reads account from file and returns it;
     // throws IOException if an error occurs reading data from file
     public Account read() throws IOException {
         String jsonData = readFile(source);
@@ -44,7 +44,8 @@ public class JsonReader {
         return contentBuilder.toString();
     }
 
-    // EFFECTS: parses workroom from JSON object and returns it
+    // EFFECTS: parses account from JSON object and returns it
+    //          add NFTs to watchlist, if they are owned by this user then also add it to their wallet
     private Account parseAccount(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         String email = jsonObject.getString("Email");
@@ -52,7 +53,6 @@ public class JsonReader {
         double prevBalance =  jsonObject.getDouble("Current Balance");
         ac.getWallet().deposit(" ", prevBalance);
 
-        // EFFECTS: add NFTs to watchlist, if they are owned by this user then also add it to their wallet
         JSONArray jsonArray = jsonObject.getJSONArray("watchlist");
         for (Object json : jsonArray) {
             JSONObject nextNFT = (JSONObject) json;
@@ -67,8 +67,9 @@ public class JsonReader {
         return ac;
     }
 
+    // MODIFIES: ac
     // EFFECTS: add the watchlist nfts to the watchlist
-    // EFFECTS: get the prevoiuse balance form the json file and add it to the balance
+    //          get the prevoiuse balance form the json file and add it to the balance
     private void addNewNFTsAndAddWatchlistedNFTs(Account ac, JSONObject jsonObject) {
         String title = jsonObject.getString("title");
         String owner = jsonObject.getString("owner");
@@ -87,6 +88,7 @@ public class JsonReader {
     }
 
 
+    //MODIFIES: ac
     //EFFECTS:  add NFTs to the wallet
     public void handleWallet(Account ac, JSONObject jsonObject) {
         String title = jsonObject.getString("title");
