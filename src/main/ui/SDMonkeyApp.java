@@ -18,7 +18,7 @@ public class SDMonkeyApp {
     private Account account1;
     String name;
     String email;
-    private List<String> titleOfNFTs = new ArrayList<String>();
+    private List<String> titleOfNFTs = new ArrayList<>();
     private Scanner input;
     private static final String JSON_STORE = "./data/account.json";
     private JsonWriter jsonWriter;
@@ -393,6 +393,17 @@ public class SDMonkeyApp {
             doDeposit();
         }
     }
+
+    // EFFECTS: return the account obj
+    public Account getAccount() {
+        return this.account1;
+    }
+
+    // EFFECTS: return the current collection of NFTs desplayed on the site
+    public NFT getCollection() {
+        return this.collection;
+    }
+
 
 
     // MODIFIES: this
