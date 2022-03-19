@@ -58,7 +58,7 @@ public class SDMonkeyApp {
         init();
 
         while (keepGoing) {
-            displayMenu();
+            //displayMenu();
             command = input.next();
             command = command.toLowerCase();
 
@@ -166,7 +166,7 @@ public class SDMonkeyApp {
 
     // MODIFIES: this
     // EFFECTS: Add an NFT object to the watchlist array if it exits
-    private void doAddToWatchlist() {
+    public void doAddToWatchlist() {
         NFT nft;
         Scanner myInput = new Scanner(System.in);
         List<String> titles = new ArrayList<>();

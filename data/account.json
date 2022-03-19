@@ -1,27 +1,27 @@
 {
-    "Email": "Alex.lee@gmail.com",
+    "Email": "Rick.Sanchez@gmail.com",
     "Current Balance": 101300,
-    "name": "Alex Lee",
+    "name": "Rick Sanchez",
     "owned nfts": [
         {
-            "owner": "Alex Lee",
+            "owner": "Rick Sanchez",
             "price": 100,
             "title": "monkey 3"
         },
         {
-            "owner": "Alex Lee",
+            "owner": "Rick Sanchez",
             "price": 2000,
             "title": "monkey 5"
         },
         {
-            "owner": "Alex Lee",
+            "owner": "Rick Sanchez",
             "price": 2000,
-            "title": "monkey 10"
+            "title": "monkey 8"
         }
     ],
     "watchlist": [
         {
-            "owner": "Alex Lee",
+            "owner": "James",
             "price": 500,
             "title": "monkey 1"
         },
