@@ -41,7 +41,7 @@ public class SDMonkeyApp {
     // EFFECTS: processes user input; get users name and email
     private void runSDMonkey() {
         boolean keepGoing = true;
-        String command;
+        //String command;
         //Scanner myInput = new Scanner(System.in);
         //System.out.println("Plea");
         //name = myInput.nextLine();
@@ -57,48 +57,49 @@ public class SDMonkeyApp {
         loadWorkRoom();
         init();
 
-        while (keepGoing) {
-            //displayMenu();
-            command = input.next();
-            command = command.toLowerCase();
-
-            if (command.equals("q")) {
-                handlePromptForSaveOrNotSave();
-                if (saveAccount) {
-                    saveAccount();
-                }
-                keepGoing = false;
-            } else {
-                processCommand(command);
-            }
-        }
-        System.out.println("\nGoodbye!");
+//        while (keepGoing) {
+//            //displayMenu();
+//            command = input.next();
+//            command = command.toLowerCase();
+//
+//            if (command.equals("q")) {
+//                handlePromptForSaveOrNotSave();
+//                if (saveAccount) {
+//                    saveAccount();
+//                }
+//                keepGoing = false;
+//            } else {
+//                processCommand(command);
+//            }
+//        }
+//        System.out.println("\nGoodbye!");
     }
 
     // MODIFIES: saveAccount
     // EFFECTS: set saveAccount to false if user input n, otherwise true
-    public void handlePromptForSaveOrNotSave() {
-        Scanner myInput = new Scanner(System.in);
-        String response;
-        System.out.println("would you like to save the changes you made? (y/n)");
-        response = myInput.nextLine();
-        if (response.equals("y")) {
-            saveAccount = true;
-        } else if (response.equals("n")) {
-            saveAccount = false;
-        } else {
-            System.out.println("wrong input, saving anyways lol");
-        }
-    }
+//    public void handlePromptForSaveOrNotSave() {
+//        Scanner myInput = new Scanner(System.in);
+//        String response;
+//        System.out.println("would you like to save the changes you made? (y/n)");
+//        response = myInput.nextLine();
+//        if (response.equals("y")) {
+//            saveAccount = true;
+//        } else if (response.equals("n")) {
+//            saveAccount = false;
+//        } else {
+//            System.out.println("wrong input, saving anyways lol");
+//        }
+//    }
 
 
     // EFFECTS: saves the workroom to file
-    private void saveAccount() {
+    public void saveAccount() {
         try {
             jsonWriter.open();
             jsonWriter.write(account1);
             jsonWriter.close();
             System.out.println("Saved " + account1.getName() + " to " + JSON_STORE);
+            System.exit(0);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
@@ -128,18 +129,18 @@ public class SDMonkeyApp {
     // MODIFIES: this
     // EFFECTS: initializes accounts, makes 2 NFT objects and adds them to the collection
     private void init() {
-        NFT monkey1 = new NFT("monkey 1", 500, "James");
-        NFT monkey2 = new NFT("monkey 2", 200, "Dave");
+        NFT monkey1 = new NFT("monkey 01", 500, "James");
+        NFT monkey2 = new NFT("monkey 02", 200, "Dave");
         List<NFT> listOfNFTs;
         listOfNFTs = account1.getWallet().getOwnedNFT();
         getAllNftsTitleListVersion(listOfNFTs);
 
-        if (getAllNftsTitleListVersion(listOfNFTs).contains("monkey 1")) {
+        if (getAllNftsTitleListVersion(listOfNFTs).contains("monkey 01")) {
             monkey1.setOwner(account1.getName());
             //account1.
         }
 
-        if (getAllNftsTitleListVersion(listOfNFTs).contains("monkey 2")) {
+        if (getAllNftsTitleListVersion(listOfNFTs).contains("monkey 02")) {
             monkey2.setOwner(account1.getName());
         }
         collection.addNFT(monkey1);
@@ -412,7 +413,7 @@ public class SDMonkeyApp {
         try {
             account1 = jsonReader.read();
             for (NFT nft : JsonReader.getNfts()) {
-                if (!nft.getTitle().equals("monkey 1") && !nft.getTitle().equals("monkey 2")) {
+                if (!nft.getTitle().equals("monkey 01") && !nft.getTitle().equals("monkey 02")) {
                     collection.addNFT(nft);
                 }
             }

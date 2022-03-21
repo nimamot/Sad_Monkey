@@ -1,35 +1,24 @@
 {
     "Email": "Rick.Sanchez@gmail.com",
-    "Current Balance": 101300,
+    "Current Balance": 99800,
     "name": "Rick Sanchez",
     "owned nfts": [
         {
             "owner": "Rick Sanchez",
             "price": 100,
-            "title": "monkey 3"
+            "title": "monkey 03"
         },
         {
             "owner": "Rick Sanchez",
             "price": 2000,
-            "title": "monkey 5"
-        },
-        {
-            "owner": "Rick Sanchez",
-            "price": 2000,
-            "title": "monkey 8"
-        },
-      {
-        "owner": "Rick Sanchez",
-        "price": 2000,
-        "title": "monkey 4"
-      },
-      {
-        "owner": "Rick Sanchez",
-        "price": 2000,
-        "title": "monkey 6"
-      }
+            "title": "monkey 04"
+        }
     ],
     "watchlist": [
-
+        {
+            "owner": "Rick Sanchez",
+            "price": 2000,
+            "title": "monkey 04"
+        }
     ]
 }
