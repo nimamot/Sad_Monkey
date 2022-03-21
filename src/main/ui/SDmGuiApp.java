@@ -424,16 +424,7 @@ public class SDmGuiApp {
         JLabel sysLogLabel2 = new JLabel();
         JTextField nftTitleTextField = makeJtextField();
 
-        JButton purchaseButton = new JButton("  purchase!  ");
-
-        purchaseButton.addActionListener(e -> {
-            String nftTitle = nftTitleTextField.getText();
-            boolean newNFT = doMakePurchase(nftTitle);
-            sysLogLabel2.setText(sysLog2);
-            if (newNFT) {
-                helperForAddButtonInViewWatchlist(ownedNFTs, nftTitle);
-            }
-        });
+        JButton purchaseButton = getPurchaseButton(ownedNFTs, sysLogLabel2, nftTitleTextField);
 
         JLabel sysLogLabel3 = new JLabel();
         JTextField newNftTitle = makeJtextField();
@@ -458,6 +449,20 @@ public class SDmGuiApp {
 
         setUpForOwned(ownedNFTs, goBackButton, ownedNFTsFrame, false);
         ownedNFTsFrame.setVisible(true);
+    }
+
+    private JButton getPurchaseButton(JPanel ownedNFTs, JLabel sysLogLabel2, JTextField nftTitleTextField) {
+        JButton purchaseButton = new JButton("  purchase!  ");
+
+        purchaseButton.addActionListener(e -> {
+            String nftTitle = nftTitleTextField.getText();
+            boolean newNFT = doMakePurchase(nftTitle);
+            sysLogLabel2.setText(sysLog2);
+            if (newNFT) {
+                helperForAddButtonInViewWatchlist(ownedNFTs, nftTitle);
+            }
+        });
+        return purchaseButton;
     }
 
     private JTextField makeJtextField() {
