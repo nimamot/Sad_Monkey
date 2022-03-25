@@ -8,7 +8,6 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
 
@@ -23,10 +22,10 @@ public class SDmGuiApp {
     Border border;
     Border border2;
     JFrame frame;
-    JFrame accountFrame; // create a frame
+    JFrame accountFrame;
     JFrame watchlistFrame;
     JFrame ownedNFTsFrame;
-    JFrame watchListAnNFtFrame; // the page for of watchListing an NFT
+    JFrame watchListAnNFtFrame;
     JFrame listNFtFrame;
     JFrame purchaseNFtFrame;
     JScrollPane scrPane;
@@ -44,7 +43,7 @@ public class SDmGuiApp {
 
     // EFFECTS: runs the SDmGuiApp application
     public SDmGuiApp() {
-        frame = new JFrame(); // create a frame
+        frame = new JFrame();
         mainPanel = new JPanel();
         border = BorderFactory.createLineBorder(Color.green, 3);
         border2 = BorderFactory.createLineBorder(Color.red, 3);
@@ -69,25 +68,27 @@ public class SDmGuiApp {
         scrPane.setHorizontalScrollBar(null);
         scrPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-
         JButton accountButton = new JButton("Account");
         accountButton.addActionListener(e -> accountView());
-
         accountButton.setPreferredSize(new Dimension(100, 40));
 
-
         frame.setTitle("Sad Monkey");
-        mainPanel.setBackground(new Color(123, 40, 250));
+        mainPanel.setBackground(getColor());
+
         frame.add(scrPane); // a mainPanel
         frame.add(accountButton, BorderLayout.SOUTH);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setSize(380, 680);
-        frame.setVisible(true); // make frame visible
+        frame.setVisible(true);
+        frame.getContentPane().setBackground(getColor());
 
-        frame.getContentPane().setBackground(new Color(123, 40, 250));
+    }
 
+    // EFFECTS: return the background color
+    private Color getColor() {
+        return new Color(123, 40, 250);
     }
 
 
@@ -97,6 +98,8 @@ public class SDmGuiApp {
     }
 
 
+    //MODIFIES: this
+    // EFFECTS: set the profile picture
     public void setProfilePic(JPanel panel) {
         ImageIcon imageIcon2 = new ImageIcon("src/main/ui/pics/profile.png/profile.png");
         Image image2 = imageIcon2.getImage(); // transform it
@@ -115,13 +118,9 @@ public class SDmGuiApp {
     //          labels for name, email and balance
     public void accountView() {
         accountFrame.setTitle("Sad Monkey/Account");
-
         JLabel balanceLabel = new JLabel();
-
-
         JPanel accountViewPannle = new JPanel();
         accountViewPannle.setLayout(new BoxLayout(accountViewPannle, BoxLayout.Y_AXIS));
-
 
         setProfilePic(accountViewPannle);
         JLabel nameLabel = new JLabel();
@@ -129,21 +128,17 @@ public class SDmGuiApp {
         balance = ac.getWallet().getBalance();
         setLables(balanceLabel, nameLabel, emailLabel);
 
-        // Button for going back
         JButton goBackButton = getjButtonForAcountViewGoingBackButton();
         JButton viewWatchlistButton = getjButtonForViewAccount();
-
         JButton viewOwnedNFTs = getjButtonForAccountViewForViewOwnedNFTs();
-
         JButton saveAndExit = getjButtonForAccountViewForSaveAndLogOut();
-
 
         setUpFrameForAccountView(balanceLabel, accountViewPannle, nameLabel, emailLabel, goBackButton,
                 viewWatchlistButton, viewOwnedNFTs, saveAndExit);
-
-
     }
 
+
+    // EFFECTS: return a JButton
     private JButton getjButtonForAccountViewForViewOwnedNFTs() {
         // Button for ownedNFts
         JButton viewOwnedNFTs = new JButton("Owned NFTs");
@@ -151,6 +146,8 @@ public class SDmGuiApp {
         return viewOwnedNFTs;
     }
 
+
+    // EFFECTS: return a JButton
     private JButton getjButtonForAccountViewForSaveAndLogOut() {
         // Button for Save and Quit
         JButton saveAndExit = new JButton("Save and Exit");
@@ -159,6 +156,8 @@ public class SDmGuiApp {
         return saveAndExit;
     }
 
+
+    // EFFECTS: return a JButton
     private JButton getjButtonForAcountViewGoingBackButton() {
         JButton goBackButton = new JButton("Go back");
         goBackButton.addActionListener(e -> {
@@ -169,6 +168,8 @@ public class SDmGuiApp {
         return goBackButton;
     }
 
+
+    // EFFECTS: return a JButton
     private JButton getjButtonForViewAccount() {
         // Button for watchlist
         JButton viewWatchlistButton = new JButton("Watchlist");
@@ -176,6 +177,8 @@ public class SDmGuiApp {
         return viewWatchlistButton;
     }
 
+
+    // EFFECTS: set the visibility of the frames
     private void goBackButtonForAccountView(JFrame accountFrame, boolean b, JFrame watchlistFrame,
                                             JFrame ownedNFTsFrame, JFrame listNFtFrame, JFrame purchaseNFtFrame,
                                             JFrame watchListAnNFtFrame) {
@@ -187,6 +190,8 @@ public class SDmGuiApp {
         watchListAnNFtFrame.setVisible(false);
     }
 
+
+    // EFFECTS: set up the labels
     private void setLables(JLabel balanceLabel, JLabel nameLabel, JLabel emailLabel) {
         balanceLabel.setText("Balance: " + balance);
 
@@ -199,6 +204,8 @@ public class SDmGuiApp {
         balanceLabel.setBorder(BorderFactory.createEmptyBorder(25, 15, 25, 30));
     }
 
+
+    // EFFECTS: set up the frame settings for accountFrame
     public void setUpFrameForAccountView(JLabel balanceLabel, JPanel accountViewPannle, JLabel nameLabel,
                                          JLabel emailLabel, JButton goBackButton, JButton viewWatchlistButton,
                                          JButton viewOwnedNFTs, JButton saveAndExit) {
@@ -211,8 +218,7 @@ public class SDmGuiApp {
         balanceLabel.setForeground(Color.white);
 
         makeFrame(accountFrame);
-        accountViewPannle.setBackground(new Color(123, 40, 250));
-
+        accountViewPannle.setBackground(getColor());
 
         accountViewPannle.add(nameLabel);
         accountViewPannle.add(emailLabel);
@@ -221,12 +227,10 @@ public class SDmGuiApp {
         accountViewPannle.add(viewOwnedNFTs);
         accountViewPannle.add(saveAndExit);
 
-        //accountViewPannle.add(purchaseNFtButton);
-
         accountViewPannle.add(goBackButton, BorderLayout.SOUTH);
 
 
-        accountFrame.getContentPane().setBackground(new Color(123, 40, 250));
+        accountFrame.getContentPane().setBackground(getColor());
 
         accountFrame.add(accountViewPannle);
         accountFrame.add(goBackButton, BorderLayout.SOUTH);
@@ -269,10 +273,10 @@ public class SDmGuiApp {
         });
 
         forLoopForViewWatchlist(watchlistedNFTsPanel, watchlist);
-
         setUpForViewWatchlist(watchlistedNFTsPanel, goBackButton, watchlistFrame, visibility);
-        watchlistedNFTsPanel.setBackground(new Color(123, 40, 250));// <<<<<
+        watchlistedNFTsPanel.setBackground(getColor());
     }
+
 
     // EFFECTS: make a new JButton for ViewWatchlist.AddNFTtoWatchlis
     private JButton getjButton(JPanel watchlistedNFTsPanel, JLabel sysLogLabel, JTextField nftTitleTextField) {
@@ -288,6 +292,7 @@ public class SDmGuiApp {
         return addButton;
     }
 
+
     // REQUIRES: nftPriceTextField contains only integer
     // EFFECTS: make a new JButton for ViewWatchlist.AddNFTtoWatchlis
     private JButton getjButtonForMinting(JPanel panel, JLabel sysLogForThis, JTextField nftTitleTextField,
@@ -298,14 +303,13 @@ public class SDmGuiApp {
             int nftPrice = parseInt(nftPriceTextField.getText());
             boolean newNFT = doListNFT(nftTitle, nftPrice);
             sysLogForThis.setText(syslog3);
-            if (newNFT) {  // this has to change too
+            if (newNFT) {
                 helperForAddButtonInViewWatchlist(panel, nftTitle);
-//                forLoopForViewOwnedNFts();
-//                viewOwnedNFTs();
             }
         });
         return button;
     }
+
 
     // EFFECTS: preforms the for loop for ViewWatchlist
     private void forLoopForViewWatchlist(JPanel watchlistedNFTsPanel, List<NFT> watchlist) {
@@ -333,6 +337,8 @@ public class SDmGuiApp {
         }
     }
 
+
+    // MODIFIES: this
     // EFFECTS: preforms the for loop for ViewWatchlist
     private void forLoopForViewAccount(JPanel watchlistedNFTsPanel, List<NFT> watchlist) {
         for (NFT nft : watchlist) {
@@ -359,12 +365,13 @@ public class SDmGuiApp {
         }
     }
 
+    // EFFECTS: sets up the visibility and appearance of a given JPanel
     private void setUpForViewWatchlist(JPanel panel, JButton goBackButton, JFrame watchlistFrame,
                                        boolean b) {
         watchlistFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         watchlistFrame.setResizable(false);
         watchlistFrame.setSize(380, 680);
-        watchlistFrame.getContentPane().setBackground(new Color(123, 40, 250));
+        watchlistFrame.getContentPane().setBackground(getColor());
         watchlistFrame.add(goBackButton, BorderLayout.SOUTH);
         watchlistFrame.add(panel);
 
@@ -373,12 +380,14 @@ public class SDmGuiApp {
         watchlistFrame.setVisible(b);
     }
 
-    private void setUpForOwned(JPanel panel, JButton goBackButton, JFrame setFrame, boolean b) {
 
+    // MODIFIES: this
+    // EFFECTS: sets up the visibility, button positions and the panel settings for a given JFrame
+    private void setUpForOwned(JPanel panel, JButton goBackButton, JFrame setFrame) {
         setFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setFrame.setResizable(false);
         setFrame.setSize(380, 680);
-        setFrame.getContentPane().setBackground(new Color(123, 40, 250));
+        setFrame.getContentPane().setBackground(getColor());
         setFrame.add(goBackButton, BorderLayout.SOUTH);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         JScrollPane scrPane = new JScrollPane(panel);
@@ -388,10 +397,13 @@ public class SDmGuiApp {
 
         accountFrame.setVisible(false);
         frame.setVisible(false);
-        setFrame.setVisible(b);
+        setFrame.setVisible(false);
     }
 
 
+
+    // MODIFIES: this
+    // EFFECTS: adds an NFT to the given JPanel with its picture
     public void helperForAddButtonInViewWatchlist(JPanel panel, String nftTitle) {
         ImageIcon imageIcon2 = new ImageIcon("src/main/ui/pics/logo"
                 + (nftTitle.substring(nftTitle.length() - 2)) + ".png");
@@ -406,7 +418,6 @@ public class SDmGuiApp {
         label2.setIcon(imageIcon2);
         label2.setHorizontalTextPosition(JLabel.CENTER);
         label2.setVerticalTextPosition(JLabel.BOTTOM);
-        //label.setForeground(new Color(0x0));
         label2.setFont(new Font("MV Boli", Font.PLAIN, 12));
         label2.setForeground(Color.WHITE);
         label2.setIconTextGap(2);
@@ -447,10 +458,12 @@ public class SDmGuiApp {
         forLoopForViewOwnedNFts(ownedNFTs);
 
 
-        setUpForOwned(ownedNFTs, goBackButton, ownedNFTsFrame, false);
+        setUpForOwned(ownedNFTs, goBackButton, ownedNFTsFrame);
         ownedNFTsFrame.setVisible(true);
     }
 
+
+    // EFFECTS: return the JButton for making a purchase
     private JButton getPurchaseButton(JPanel ownedNFTs, JLabel sysLogLabel2, JTextField nftTitleTextField) {
         JButton purchaseButton = new JButton("  purchase!  ");
 
@@ -465,6 +478,7 @@ public class SDmGuiApp {
         return purchaseButton;
     }
 
+    // EFFECTS: return a JTextField
     private JTextField makeJtextField() {
         JTextField nftTitleTextField = new JTextField(30);
         nftTitleTextField.setColumns(10);
@@ -472,6 +486,7 @@ public class SDmGuiApp {
         return nftTitleTextField;
     }
 
+    // EFFECTS: return a JButton
     private JButton getjButtonForViewOwnedNFTs() {
         // Button for going back
         JButton goBackButton = new JButton("Go back");
@@ -481,14 +496,15 @@ public class SDmGuiApp {
             watchlistFrame.setVisible(false);
             ownedNFTsFrame.setVisible(false);
             accountFrame.getContentPane().removeAll();
-            ownedNFTsFrame.getContentPane().removeAll(); ////// --------/////
+            ownedNFTsFrame.getContentPane().removeAll();
             accountView();
         });
         return goBackButton;
     }
 
+    // EFFECTS: display all the nfts owned by the current user
     private void forLoopForViewOwnedNFts(JPanel ownedNFTs) {
-        ownedNFTs.setBackground(new Color(123, 40, 250));// <<<<<
+        ownedNFTs.setBackground(getColor());
         for (NFT nft : ac.getWallet().getOwnedNFT()) {
             ImageIcon imageIcon2 = new ImageIcon("src/main/ui/pics/logo"
                     + (nft.getTitle().substring(nft.getTitle().length() - 2)) + ".png");
@@ -550,17 +566,18 @@ public class SDmGuiApp {
     }
 
 
-    // set some criteria for the panel
+    // EFFECTS: Set some criteria for the panel
     public void makeFrame(JFrame frame) {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setSize(380, 680);
         frame.setVisible(true);
-        frame.getContentPane().setBackground(new Color(123, 40, 250));
+        frame.getContentPane().setBackground(getColor());
 
     }
 
+    // EFFECTS: check if all the criteria are met for a purchase
     public boolean doMakePurchase(String title) {
         List<String> titles = new ArrayList<>();
 
@@ -586,6 +603,9 @@ public class SDmGuiApp {
         }
     }
 
+
+    // MODIFIES: this, ac
+    // EFFECTS: make a purchase
     private void clearPurchase(String name, NFT nft) {
         ac.getWallet().makePurchase(nft, name);
         //ac.getWallet().addNFT(nft);
@@ -621,171 +641,11 @@ public class SDmGuiApp {
         }
     }
 
-    // EFFECTS: return a list of string. containing all the NFT titles in the clollection
+    // EFFECTS: return a list of string. containing all the NFT titles in the collection
     public List<String> getAllNftsTitle(NFT listOfNFts) {
         for (NFT nft : listOfNFts.getAllNFTs()) {
             titlesList.add(nft.getTitle());
         }
         return titlesList;
     }
-
-
-
-//    public void purchaseNFT() {
-//        JPanel purchaseNFtPanel = new JPanel();
-//
-//        purchaseNFtFrame.setTitle("Sad Monkey/Account/purchaseNFT");
-//
-//        JLabel sysLogLabel2 = new JLabel();
-//        JTextField nftTitleTextField = new JTextField(30);
-//        nftTitleTextField.setColumns(10);
-//        nftTitleTextField.setBounds(50, 100, 200, 30);
-//
-//        JButton purchaseButton = new JButton("pay");
-//        purchaseButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                String nftTitle = nftTitleTextField.getText();
-//                doMakePurchase(nftTitle);
-//                sysLogLabel2.setText(sysLog2);
-//            }
-//        });
-//
-//        // Button for going back
-//        JButton goBackButton = new JButton("Go back");
-//        goBackButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//
-//                setVisibilityForgoBackButton();
-//
-//
-//            }
-//        });
-//
-//
-//        purchaseNFtPanel.add(nftTitleTextField);
-//        purchaseNFtPanel.add(purchaseButton);
-//        purchaseNFtPanel.add(sysLogLabel2);
-//
-//        purchaseNFtFrame.getContentPane().setBackground(new Color(123, 40, 250));
-//        purchaseNFtFrame.add(purchaseNFtPanel); // add the panel to the current frame
-//        purchaseNFtFrame.add(goBackButton, BorderLayout.SOUTH);
-//
-//        makeFrame(purchaseNFtFrame);
-//        setVisibilityForPurchaseNFT();
-//
-//
-//    }
-//
-//    public void setVisibilityForPurchaseNFT() {
-//        accountFrame.setVisible(false);
-//        frame.setVisible(false);
-//        watchlistFrame.setVisible(false);
-//        ownedNFTsFrame.setVisible(false);
-//        listNFtFrame.setVisible(false);
-//        purchaseNFtFrame.setVisible(true);
-//        watchListAnNFtFrame.setVisible(false);
-//
-//    }
-
-    //
-//    public void setVisibilityForgoBackButton() {
-//        accountFrame.setVisible(true);
-//        frame.setVisible(false);
-//        watchlistFrame.setVisible(false);
-//        ownedNFTsFrame.setVisible(false);
-//        listNFtFrame.setVisible(false);
-//        purchaseNFtFrame.setVisible(false);
-//        watchListAnNFtFrame.setVisible(false);
-//    }
-
-
-    // EFFECTS: add an NFT to the watchlist
-//    public void watchListNFT() {
-//
-//        JPanel watchListAnNFtPanel = new JPanel();
-//        JLabel sysLogLabel = new JLabel();
-//
-//        watchListAnNFtFrame.setTitle("Sad Monkey/Account/watchlistNFT");
-//
-//        JTextField nftTitleTextField = new JTextField(30);
-//        nftTitleTextField.setColumns(10);
-//        nftTitleTextField.setBounds(50, 100, 200, 30);
-//
-//        JButton addButton = new JButton("Add");
-//        addButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                String nftTitle = nftTitleTextField.getText();
-//                doAddToWatchlist(nftTitle);
-//                sysLogLabel.setText(sysLog);
-//
-//            }
-//        });
-//
-//        // Button for going back
-//        JButton goBackButton = new JButton("Go back");
-//        goBackButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                setVisibilityForgoBackButton();
-//                watchListAnNFtFrame.getContentPane().removeAll();
-//            }
-//        });
-//
-//
-//        watchListAnNFtPanel.add(nftTitleTextField);
-//        watchListAnNFtPanel.add(addButton);
-//        watchListAnNFtPanel.add(goBackButton);
-//        watchListAnNFtPanel.add(sysLogLabel);
-//
-//
-//        makeFrame(watchListAnNFtFrame);
-//
-//        watchListAnNFtFrame.getContentPane().setBackground(new Color(123, 40, 250));
-//        watchListAnNFtFrame.add(watchListAnNFtPanel); // add the panel to the current frame
-//        watchListAnNFtFrame.add(goBackButton, BorderLayout.SOUTH);
-//        watchListAnNFtFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//        setVisibilityForWatchListNFT();
-//
-//    }
-
-    // set all other frames visibility to false
-//    public void setVisibilityForWatchListNFT() {
-//        accountFrame.setVisible(false);
-//        frame.setVisible(false);
-//        watchlistFrame.setVisible(false);
-//        ownedNFTsFrame.setVisible(false);
-//        listNFtFrame.setVisible(false);
-//        purchaseNFtFrame.setVisible(false);
-//        watchListAnNFtFrame.setVisible(true);
-//    }
-
-    //    public void helperForMintNftInAccountView(String nftTitle) {
-//        ImageIcon imageIcon2 = new ImageIcon("src/main/ui/pics/logo"
-//                + (nftTitle.substring(nftTitle.length() - 2)) + ".png");
-//        Image image2 = imageIcon2.getImage(); // transform it
-//        Image newimg2 = image2.getScaledInstance(170, 110, java.awt.Image.SCALE_SMOOTH);
-//        imageIcon2 = new ImageIcon(newimg2);  // transform it back
-//        NFT nft = collection.getNftByTitle(nftTitle);
-//        owner = nft.getOwner();
-//        JLabel label2 = new JLabel("<html>Title: " + nft.getTitle() + "<br/> Price: " + nft.getPrice()
-//                + "<br/> Owner: " + owner + " <br/>",
-//                SwingConstants.CENTER);
-//        label2.setIcon(imageIcon2);
-//        label2.setHorizontalTextPosition(JLabel.CENTER);
-//        label2.setVerticalTextPosition(JLabel.BOTTOM);
-//        //label.setForeground(new Color(0x0));
-//        label2.setFont(new Font("MV Boli", Font.PLAIN, 12));
-//        label2.setForeground(Color.WHITE);
-//        label2.setIconTextGap(2);
-//        label2.setBorder(border);
-//        //ownedNFTs.add(label2);
-//         ////////////--------------//////////
-//    }
-//
-
-
 }
