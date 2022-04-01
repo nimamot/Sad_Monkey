@@ -46,6 +46,16 @@ monkey 11 was added by you, Alex Lee
 Tue Mar 29 13:47:31 PDT 2022
 monkey 02 was purchased
 
+## phase 4, Task 3 (Reflection):
+if I had more time to work on thins project I would improve my design in the following ways:
+
+- Try to make the whole project more cohesive focusing on ui classes (SDmGuiApp and SDMonkeyApp) since a
+lot of methods in those 2 classes could be placed in a complete different class.
+
+- Make super class for SDmGuiApp and SDMonkeyApp since both of these have a lot in common.
+by doing so the coupling between the classes would be looser as well since only the super class would be highly 
+coupled with classes like NFT.
+
 ## Citation: 
 - Phase 1: Teller App, (https://github.students.cs.ubc.ca/CPSC210/TellerApp)
 - Phase 2: JsonSerializationDemo (GitHub: )
