@@ -1,6 +1,6 @@
 package persistence;
 
-import model.*;
+//import model.*;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import model.Account;
+import model.NFT;
 import org.json.*;
 import ui.SDMonkeyApp;
 
@@ -18,7 +20,7 @@ public class JsonReader {
     private final String source;
     private static final List<NFT> nfts = new ArrayList<NFT>();
     private final List<String> titles = new ArrayList<String>();
-    private List<String> owners;
+    //private List<String> owners;
 
     // EFFECTS: constructs reader to read from source file
     public JsonReader(String source) {
@@ -78,13 +80,6 @@ public class JsonReader {
         nfts.add(newNFT);
         titles.add(title);
         ac.addToWatchlist(newNFT);
-        //if (!title.equals("monkey 1") && !title.equals("monkey 2")) {
-        //    SDMonkeyApp.addToCollection();
-        //}
-        // put the nft in user's wallet, if they own it
-       // if (owner.equals(name) && ) {
-         //   ac.getWallet().addNFT(newNFT);
-        //}
     }
 
 

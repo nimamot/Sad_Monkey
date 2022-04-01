@@ -1,6 +1,7 @@
 package ui;
 
 import model.Account;
+import model.EventLog;
 import model.NFT;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ import java.util.List;
 import static java.lang.Integer.parseInt;
 
 
+// Represents a GUI for the Sad Monkey Application
 public class SDmGuiApp {
     String sysLog;
     String sysLog2;
@@ -31,9 +33,7 @@ public class SDmGuiApp {
     JScrollPane scrPane;
 
 
-
     List<String> titlesList = new ArrayList<>();
-
 
     SDMonkeyApp smd = new SDMonkeyApp();
     Account ac = smd.getAccount();
@@ -42,7 +42,9 @@ public class SDmGuiApp {
 
 
     // EFFECTS: runs the SDmGuiApp application
+    //          initializes the frames, borders and panels
     public SDmGuiApp() {
+        EventLog.getInstance().clear();
         frame = new JFrame();
         mainPanel = new JPanel();
         border = BorderFactory.createLineBorder(Color.green, 3);
@@ -60,7 +62,8 @@ public class SDmGuiApp {
         makeGame();
     }
 
-    // EFFECTS: make the first frame and show the NFTs on the marketplace
+    // MODIFIES: frame, mainPanel
+    // EFFECTS: make the mainPanel and add it to its frame and show the NFTs on the marketplace on that frame
     public void makeGame() {
         mainPanel.removeAll();
         setUp();
@@ -86,18 +89,20 @@ public class SDmGuiApp {
 
     }
 
+
     // EFFECTS: return the background color
     private Color getColor() {
         return new Color(123, 40, 250);
     }
 
 
-    // EFFECTS: It adds the NFTs in the collection to the gui and also gives them a picture
+    // EFFECTS: adds the NFTs in the collection to the gui and also gives them a picture
     public void setUp() {
         forLoopForViewAccount(mainPanel, collection.getAllNFTs());
     }
 
 
+    // REQUIRES: a non-empty JPanel
     //MODIFIES: this
     // EFFECTS: set the profile picture
     public void setProfilePic(JPanel panel) {
@@ -114,7 +119,8 @@ public class SDmGuiApp {
     }
 
 
-    // EFFECTS: make a frame for account view, it displays buttons for different actions
+    // MODIFIES: balance, accountFrame
+    // EFFECTS: make a frame for account view,  display buttons for different actions
     //          labels for name, email and balance
     public void accountView() {
         accountFrame.setTitle("Sad Monkey/Account");
@@ -132,13 +138,12 @@ public class SDmGuiApp {
         JButton viewWatchlistButton = getjButtonForViewAccount();
         JButton viewOwnedNFTs = getjButtonForAccountViewForViewOwnedNFTs();
         JButton saveAndExit = getjButtonForAccountViewForSaveAndLogOut();
-
         setUpFrameForAccountView(balanceLabel, accountViewPannle, nameLabel, emailLabel, goBackButton,
                 viewWatchlistButton, viewOwnedNFTs, saveAndExit);
     }
 
 
-    // EFFECTS: return a JButton
+    // EFFECTS: return a JButton for ViewOwnedNFTs
     private JButton getjButtonForAccountViewForViewOwnedNFTs() {
         // Button for ownedNFts
         JButton viewOwnedNFTs = new JButton("Owned NFTs");
@@ -147,7 +152,7 @@ public class SDmGuiApp {
     }
 
 
-    // EFFECTS: return a JButton
+    // EFFECTS: return a JButton for save and Exit
     private JButton getjButtonForAccountViewForSaveAndLogOut() {
         // Button for Save and Quit
         JButton saveAndExit = new JButton("Save and Exit");
@@ -169,7 +174,7 @@ public class SDmGuiApp {
     }
 
 
-    // EFFECTS: return a JButton
+    // EFFECTS: return a JButton for viewWatchlist
     private JButton getjButtonForViewAccount() {
         // Button for watchlist
         JButton viewWatchlistButton = new JButton("Watchlist");
@@ -191,7 +196,7 @@ public class SDmGuiApp {
     }
 
 
-    // EFFECTS: set up the labels
+    // EFFECTS: set up the labels with their text and give them border
     private void setLables(JLabel balanceLabel, JLabel nameLabel, JLabel emailLabel) {
         balanceLabel.setText("Balance: " + balance);
 
@@ -426,6 +431,7 @@ public class SDmGuiApp {
     }
 
 
+    // MODIFIES: ownedNFTsFrame
     // EFFECTS: show all the NFTs under the current user's name
     public void viewOwnedNFTs() {
         ownedNFTsFrame.setTitle("Sad Monkey/Account/OwnedNFTs");
@@ -442,27 +448,21 @@ public class SDmGuiApp {
         JTextField newNftPrice = makeJtextField();
         // Button for listYourNFtButton
         JButton listYourNFtButton = getjButtonForMinting(ownedNFTs, sysLogLabel2, newNftTitle, newNftPrice);
-
-
         ownedNFTs.add(nftTitleTextField);
         ownedNFTs.add(purchaseButton);
         ownedNFTs.add(sysLogLabel2);
-
         ownedNFTs.add(newNftTitle);
         ownedNFTs.add(newNftPrice);
         ownedNFTs.add(listYourNFtButton);
         ownedNFTs.add(sysLogLabel3);
-
-
         JButton goBackButton = getjButtonForViewOwnedNFTs();
         forLoopForViewOwnedNFts(ownedNFTs);
-
-
         setUpForOwned(ownedNFTs, goBackButton, ownedNFTsFrame);
         ownedNFTsFrame.setVisible(true);
     }
 
 
+    // REQUIRES: a valid panel, Jlabel and a textField
     // EFFECTS: return the JButton for making a purchase
     private JButton getPurchaseButton(JPanel ownedNFTs, JLabel sysLogLabel2, JTextField nftTitleTextField) {
         JButton purchaseButton = new JButton("  purchase!  ");
@@ -478,7 +478,7 @@ public class SDmGuiApp {
         return purchaseButton;
     }
 
-    // EFFECTS: return a JTextField
+    // EFFECTS: return a JTextField with specific size
     private JTextField makeJtextField() {
         JTextField nftTitleTextField = new JTextField(30);
         nftTitleTextField.setColumns(10);
@@ -486,12 +486,12 @@ public class SDmGuiApp {
         return nftTitleTextField;
     }
 
-    // EFFECTS: return a JButton
+    // MODIFIES: frame, watchlistFrame, ownedNFTsFrame
+    // EFFECTS: return a JButton with specified visibility
     private JButton getjButtonForViewOwnedNFTs() {
         // Button for going back
         JButton goBackButton = new JButton("Go back");
         goBackButton.addActionListener(e -> {
-            //accountFrame.setVisible(true);
             frame.setVisible(false);
             watchlistFrame.setVisible(false);
             ownedNFTsFrame.setVisible(false);
@@ -502,7 +502,9 @@ public class SDmGuiApp {
         return goBackButton;
     }
 
-    // EFFECTS: display all the nfts owned by the current user
+
+    // MODIFIES: label2, ownedNFTs
+    // EFFECTS: display all the NFTs owned by the current user on the given JPanel
     private void forLoopForViewOwnedNFts(JPanel ownedNFTs) {
         ownedNFTs.setBackground(getColor());
         for (NFT nft : ac.getWallet().getOwnedNFT()) {
@@ -527,7 +529,7 @@ public class SDmGuiApp {
         }
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, sysLog
     // EFFECTS: Add an NFT object to the watchlist array if it exits
     //          set the sysLog, returns true if it added the NFT, false otherwise
     public boolean doAddToWatchlist(String nftTitle) {
@@ -544,7 +546,8 @@ public class SDmGuiApp {
         } else {
             nft = collection.getNftByTitle(nftTitle);
             if (!getAllNftsTitleListVersionForWatchlist(watchlist).contains(nftTitle)) {
-                watchlist.add(nft);
+                ac.addToWatchlist(nft);
+                watchlist  = ac.getWatchList();   //
                 sysLog = "added " + nft.getTitle() + " To your watchlist";
                 return true;
             } else {
@@ -554,7 +557,8 @@ public class SDmGuiApp {
         }
     }
 
-    // EFFECTS: return a list of string. containing all the NFT titles in the collection
+
+    // EFFECTS: return a list of string, containing all the NFT titles in the collection
     public List<String> getAllNftsTitleListVersionForWatchlist(List<NFT> listOfNFts) {
         List<String> listOfTitlesOfNFTs = new ArrayList<>();
         for (NFT nft : listOfNFts) {
@@ -566,7 +570,8 @@ public class SDmGuiApp {
     }
 
 
-    // EFFECTS: Set some criteria for the panel
+    // REQUIRES: a JFrame
+    // EFFECTS: Set the criteria for the given JPanel
     public void makeFrame(JFrame frame) {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -577,10 +582,12 @@ public class SDmGuiApp {
 
     }
 
-    // EFFECTS: check if all the criteria are met for a purchase
+
+    // MODIFIES: sysLog2
+    // EFFECTS: check if all the criteria are met for a purchase, if they are return true
+    //          otherwise return false
     public boolean doMakePurchase(String title) {
         List<String> titles = new ArrayList<>();
-
         for (NFT nft : collection.getAllNFTs()) {
             titles.add(nft.getTitle());
         }
@@ -603,12 +610,11 @@ public class SDmGuiApp {
         }
     }
 
-
-    // MODIFIES: this, ac
-    // EFFECTS: make a purchase
+    // Requires: a valid NFT object
+    // MODIFIES: this, ac, sysLog2
+    // EFFECTS: make a purchase by calling makePurchase in Wallet
     private void clearPurchase(String name, NFT nft) {
         ac.getWallet().makePurchase(nft, name);
-        //ac.getWallet().addNFT(nft);
         sysLog2 = "purchased " + nft.getTitle() + " and it is now in your wallet";
         owner = ac.getName();
         balance = ac.getWallet().getBalance();
@@ -618,8 +624,9 @@ public class SDmGuiApp {
 
 
     // MODIFIES: this
-    // EFFECTS: Add an NFT object to the existing listings on the marketplace if the user has enough balance,
-    //          and the inputs are valid
+    // EFFECTS: Add an NFT object to the existing listings on the marketplace and return true if the user has enough
+    //          balance, and the inputs are valid
+    //          otherwise return false
     public boolean doListNFT(String newNftTitle, int newNftPrice) {
         if (!getAllNftsTitle(collection).contains(newNftTitle)) {
             if (newNftPrice > 0) {
@@ -628,7 +635,6 @@ public class SDmGuiApp {
                 collection.addNFT(newNftObject);
                 ac.getWallet().getOwnedNFT().add(newNftObject);
                 syslog3 = "successfully added " + newNftTitle + " for a price of " + newNftPrice;
-                //System.out.println("successfully added " + newNftTitle + " for a price of " + newNftPrice);
                 return true;
 
             } else {
@@ -641,6 +647,7 @@ public class SDmGuiApp {
         }
     }
 
+    // REQUIRES: non-Empty list of NFts
     // EFFECTS: return a list of string. containing all the NFT titles in the collection
     public List<String> getAllNftsTitle(NFT listOfNFts) {
         for (NFT nft : listOfNFts.getAllNFTs()) {

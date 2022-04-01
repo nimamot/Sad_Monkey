@@ -39,6 +39,8 @@ public class SMWallet {
             balance -= nft.getPrice();
             nft.setOwner(newOwner);
             ownedNFTs.add(nft);
+            EventLog.getInstance().logEvent(new Event(nft.getTitle() + " was purchased"));
+
         }
     }
 
@@ -58,7 +60,7 @@ public class SMWallet {
         return accountID;
     }
 
-    // TODO : TESTS THIS!
+
     // MODIFIES: this
     // EFFECTS: nft objects to the wallet, only used for JsonReader
     public void addNFT(NFT nft) {

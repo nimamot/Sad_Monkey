@@ -31,6 +31,8 @@ public class NFT {
     // EFFECTS: add a new nft object to the listOfNFTs
     public void addNFT(NFT nft) {
         listOfNFTs.add(nft);
+        EventLog.getInstance().logEvent(new Event(nft.getTitle() + " was added by you, Alex Lee"));
+
     }
 
     // EFFECTS: return the name of the owner of the NFT

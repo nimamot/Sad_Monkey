@@ -19,7 +19,7 @@ public class Account implements Writable {
     private final SMWallet wallet;
     private final String email;
     private final List<NFT> watchList;
-    private final List<Account> allAccounts;
+    //private final List<Account> allAccounts;
 
 
     // REQUIRES: accountName has a non-zero length
@@ -33,7 +33,7 @@ public class Account implements Writable {
         id = nextAccountId++;
         wallet = new SMWallet(id);
         this.watchList = new ArrayList<>();
-        allAccounts = new ArrayList<>();
+        //allAccounts = new ArrayList<>();
     }
 
     // EFFECTS: return the account ID
@@ -60,6 +60,8 @@ public class Account implements Writable {
     // EFFECTS: add the given nft to the watchlist
     public void addToWatchlist(NFT nft) {
         watchList.add(nft);
+        EventLog.getInstance().logEvent(new Event(nft.getTitle() + " was added to the watchlist"));
+
     }
 
     //EFFECTS:  Return user's wallet

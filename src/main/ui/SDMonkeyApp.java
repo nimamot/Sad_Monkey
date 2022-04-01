@@ -2,6 +2,8 @@ package ui;
 
 
 import model.Account;
+import model.Event;
+import model.EventLog;
 import model.NFT;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -99,6 +101,10 @@ public class SDMonkeyApp {
             jsonWriter.write(account1);
             jsonWriter.close();
             System.out.println("Saved " + account1.getName() + " to " + JSON_STORE);
+            for (Event next : EventLog.getInstance()) { // TODO
+                System.out.println(next.toString() + "\n\n");
+            }
+
             System.exit(0);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);

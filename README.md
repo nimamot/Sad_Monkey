@@ -26,6 +26,26 @@
 - As a User, I want to be able to login to my account and see my current balance.
 
 
+## phase 4, Task 2 (logs):
+Tue Mar 29 13:46:18 PDT 2022
+monkey 01 was added to the watchlist
+
+
+Tue Mar 29 13:46:23 PDT 2022
+monkey 02 was added to the watchlist
+
+
+Tue Mar 29 13:46:46 PDT 2022
+monkey 00 was added by you, Alex Lee
+
+
+Tue Mar 29 13:46:56 PDT 2022
+monkey 11 was added by you, Alex Lee
+
+
+Tue Mar 29 13:47:31 PDT 2022
+monkey 02 was purchased
+
 ## Citation: 
 - Phase 1: Teller App, (https://github.students.cs.ubc.ca/CPSC210/TellerApp)
 - Phase 2: JsonSerializationDemo (GitHub: )
