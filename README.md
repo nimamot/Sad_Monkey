@@ -55,7 +55,26 @@ lot of methods in those 2 classes could be placed in a complete different class.
 - Make super class for SDmGuiApp and SDMonkeyApp since both of these have a lot in common.
 by doing so the coupling between the classes would be looser as well since only the super class would be highly 
 coupled with classes like NFT.
+- I would also use the Iterator design pattern to abstract out parts of the loops I do. More specifically,
+since I am going through an NFT list (Watchlist, Collection, wallet) in many classes, I would make NFT iterable so
+that I won't have to run two different for loops only to go through every single NFT object.
+- As per my UML diagram, many classes are tightly coupled with the NFT class, if  I had more time to work on 
+this project I would try to use the observer pattern, make NFT class the Observable and the classes that are 
+highly coupled with it the observers, then I would use a single list of NFT that is shared between all these classes
+- and can only be modified in NFT class, then the observer classes would have an update method which would handle 
+whatever that needs to be done in that specific class.
+
+
+
 
 ## Citation: 
 - Phase 1: Teller App, (https://github.students.cs.ubc.ca/CPSC210/TellerApp)
 - Phase 2: JsonSerializationDemo (GitHub: )
+
+
+
+
+
+
+
+
