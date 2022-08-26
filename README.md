@@ -69,7 +69,6 @@ whatever that needs to be done in that specific class.
 
 ## Citation: 
 - Phase 1: Teller App, (https://github.students.cs.ubc.ca/CPSC210/TellerApp)
-- Phase 2: JsonSerializationDemo (GitHub: )
 
 
 
