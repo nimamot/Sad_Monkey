@@ -32,12 +32,8 @@
             "owner": "Rick Sanchez",
             "price": 500,
             "title": "monkey 01"
-        },
-        {
-            "owner": "Rick Sanchez",
-            "price": 100,
-            "title": "monkey 13"
         }
+
     ],
     "watchlist": [
         {
@@ -54,11 +50,7 @@
             "owner": "Rick Sanchez",
             "price": 1000,
             "title": "monkey 00"
-        },
-        {
-            "owner": "Rick Sanchez",
-            "price": 100,
-            "title": "monkey 13"
         }
+
     ]
 }
